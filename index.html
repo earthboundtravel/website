@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FWSZEZWE6H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FWSZEZWE6H');
+  </script>
+  <!-- Redirect Logic -->
+  <script>
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const tag = params.get('tag') || 'unknown';
+      
+      const redirectUrl = `https://linktr.ee/earthbound.travel?utm_source=nfc&utm_medium=physical&utm_campaign=${encodeURIComponent(tag)}`;
+      
+      window.location.href = redirectUrl;
+    };
+  </script>
+</head>
+<body>
+  <p>Redirecting you to Earthbound Travel…</p>
+</body>
+</html>
