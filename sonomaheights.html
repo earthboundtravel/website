@@ -22,69 +22,97 @@
     }
 
     body, html {
-      height: 100%;
       font-family: 'Outfit', sans-serif;
       color: #fff;
-      background-color: #16585a; /* #0b3a3f; */
+      background-color: #16585a;
+      padding: 0.5rem 1rem;
     }
 
-    .hero {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding-top: 10vh; /* This moves content ~1/3 from top */
-      text-align: center;
-    }
-
-    .content {
-      max-width: 600px;
+    .content-box {
+      max-width: 550px;
+      width: 100%;
       margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .content-box:hover {
+      background-color: rgba(255, 255, 255, 0.08);
     }
 
     .logo {
       width: 180px;
       max-width: 60%;
-      margin: 0 auto;
+      margin: 0 auto 1.5rem;
       display: block;
     }
 
     h1 {
       font-size: 2rem;
-      font-weight: 800;
+      font-weight: 500;
       margin-bottom: 1rem;
     }
 
     p {
       font-size: 1.2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       color: #ddd;
     }
 
-  .cta-btn {
-  display: inline-block;
-  background-color: #ff5433; /* darker by default */
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
+    .cta-btn {
+      display: inline-block;
+      background-color: #ff5433;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
 
-.cta-btn:hover {
-  background-color: #e54725; /* even darker on hover */
-}
+    .cta-btn:hover {
+      background-color: #e54725;
+    }
 
+    .toggle-title {
+      cursor: pointer;
+      font-size: .9rem;
+      color: #ccc;
+      margin-top: 2rem;
+      display: block;
+    }
 
-    @media (max-width: 580px) {
+    .details {
+      display: none;
+      margin-top: 1.5rem;
+      text-align: left;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    .details.open {
+      display: block;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 560px) {
       h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
       }
 
       p {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       .logo {
@@ -95,14 +123,41 @@
 </head>
 <body>
 
-  <div class="hero">
-    <div class="content">
-      <img class="logo" src="https://raw.githubusercontent.com/earthboundtravel/website/833ba727bd27789780094d0bb0afff2f2331b84b/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. Logo" />
-      <h1>Well, well, well…<br />look who’s curious!</h1>
-      <p>Let's be honest...<br />wouldn't you rather be wine-tasting in France?</p>
-      <a class="cta-btn" href="https://linktr.ee/earthbound.travel?utm_source=qr&utm_medium=neighborhood&utm_campaign=sonomaheights">Make it happen!</a>
+  <!-- Box 1 -->
+  <div class="content-box" id="box1">
+    <img class="logo" src="https://raw.githubusercontent.com/earthboundtravel/website/833ba727bd27789780094d0bb0afff2f2331b84b/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. Logo" />
+    <h1>Oops... no free wine here!</h1>
+    <p>But how about a visit to a vineyard in Bordeaux instead?</p>
+    <a class="cta-btn" href="https://linktr.ee/earthbound.travel?utm_source=qr&utm_medium=neighborhood&utm_campaign=sonomaheights">Sounds pour-fect!</a>
+
+    <span class="toggle-title" onclick="toggleBox()">Not into wine? Tap here instead.</span>
+    
+    <div id="details" class="details">
+      <p>No judgment here! We plan unforgettable trips for juice lovers, mocktail sippers and vacationers who just want a beach nap and zero small talk.</p>
+      <p>Our services include...</p>
+      <ul>
+        <li>Cruise packages</li>
+        <li>All-inclusive resorts</li>
+        <li>Group travel</li>
+        <li>Solo escapes</li>
+        <li>Bachelor & Bachelorette trips</li>
+        <li>Honeymoon planning</li>
+        <li>Guys’ / Girls’ getaways</li>
+        <li>and much more!</li>
+      </ul>
+      <br><br>
+      <p style="text-align: center;">
+        <a class="cta-btn" href="https://linktr.ee/earthbound.travel?utm_source=qr&utm_medium=neighborhood&utm_campaign=sonomaheights">Contact us today!</a>
+      </p>
     </div>
   </div>
+
+  <script>
+    function toggleBox() {
+      const details = document.getElementById("details");
+      details.classList.toggle("open");
+    }
+  </script>
 
 </body>
 </html>
