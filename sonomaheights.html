@@ -100,6 +100,17 @@
       display: block;
     }
 
+.image-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .rounded-image {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
     ul {
       margin-left: 20px;
       margin-top: 0.5rem;
@@ -128,6 +139,12 @@
     <img class="logo" src="https://raw.githubusercontent.com/earthboundtravel/website/833ba727bd27789780094d0bb0afff2f2331b84b/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. Logo" />
     <h1>Oops... no free wine here!</h1>
     <p>But how about a visit to a vineyard in Bordeaux instead?</p>
+     <div class="image-container">
+    <img 
+      src="https://media.tacdn.com/media/attractions-splice-spp-674x446/06/6c/68/f7.jpg" 
+      alt="Vineyard in Bordeaux" 
+      class="rounded-image"
+    /><br><br>
     <a class="cta-btn" href="https://linktr.ee/earthbound.travel?utm_source=qr&utm_medium=neighborhood&utm_campaign=sonomaheights">Sounds pour-fect!</a>
 
     <span class="toggle-title" onclick="toggleBox()">Not into wine? Tap here instead.</span>
