@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FWSZEZWE6H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FWSZEZWE6H');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earthbound Travel Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      background-color: #16585a;
+      padding: 0.5rem 0.5rem;
+    }
+
+    .content-box {
+      max-width: 550px;
+      width: 100%;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .content-box:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .logo {
+      width: 180px;
+      max-width: 60%;
+      margin: 0 auto;
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #ddd;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background-color: #ff5433;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background-color: #e54725;
+    }
+
+    .toggle-title {
+      cursor: pointer;
+      font-size: .9rem;
+      color: #ccc;
+      margin-top: 2rem;
+      display: block;
+    }
+
+    .details {
+      display: none;
+      margin-top: 1.5rem;
+      text-align: left;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+
+    .details.open {
+      display: block;
+    }
+
+.image-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .rounded-image {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      body, html {
+        padding: 0.5rem 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        max-width: 240px;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .logo {
+        width: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Box 1 -->
+  <div class="content-box" id="box1">
+    <img class="logo" src="https://raw.githubusercontent.com/earthboundtravel/website/833ba727bd27789780094d0bb0afff2f2331b84b/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. Logo" />
+    <h1>Oops...<br>no free wine here!</h1>
+    <p style="max-width: 280px; margin: auto;">But how about a visit to a vineyard in Bordeaux instead?</p>
+    <br>
+  
+     <div class="image-container">
+    <img 
+      src="https://media.tacdn.com/media/attractions-splice-spp-674x446/06/6c/68/f7.jpg" 
+      alt="Vineyard in Bordeaux" 
+      class="rounded-image"
+    /><br><br>
+    <a class="cta-btn" href="https://linktr.ee/earthbound.travel?utm_source=qr&utm_medium=neighborhood&utm_campaign=sonomaheights">Sounds pour-fect!</a>
+
+    <span class="toggle-title" onclick="toggleBox()">Not into wine? Tap here instead.</span>
+    
+    <div id="details" class="details">
+      <p>No judgment here! We plan unforgettable trips for juice lovers, mocktail sippers and vacationers who just want a beach nap and zero small talk.</p>
+      <p>Our services include...</p>
+      <ul>
+        <li>Cruise packages</li>
+        <li>All-inclusive resorts</li>
+        <li>Group travel</li>
+        <li>Solo escapes</li>
+        <li>Bachelor & Bachelorette trips</li>
+        <li>Honeymoon planning</li>
+        <li>Guys' / Girls' getaways</li>
+        <li>and much more!</li>
+      </ul>
+      <br><br>
+      <p style="text-align: center;">
+        <a class="cta-btn" href="https://linktr.ee/earthbound.travel?utm_source=qr&utm_medium=neighborhood&utm_campaign=sonomaheights">Contact us today!</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function toggleBox() {
+      const details = document.getElementById("details");
+      details.classList.toggle("open");
+    }
+  </script>
+
+</body>
+</html>
