@@ -16,31 +16,28 @@
       height: 100%;
       font-family: 'Outfit', sans-serif;
       color: #fff;
+      background-color: #0b3a3f;
     }
 
     .hero {
-      background-image: url('https://framerusercontent.com/images/dRSWa8rCBcQvPGNE8Ioj1GcZEM.jpg'); /* Swap this URL with any other image from your Framer site */
-      background-size: cover;
-      background-position: center;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem;
       text-align: center;
-      position: relative;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 0;
     }
 
     .content {
-      z-index: 1;
       max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      width: 180px;
+      max-width: 60%;
+      margin: 0 auto 1.5rem;
+      display: block;
     }
 
     h1 {
@@ -52,7 +49,7 @@
     p {
       font-size: 1.2rem;
       margin-bottom: 2rem;
-      color: #eee;
+      color: #ddd;
     }
 
     .cta-btn {
@@ -80,14 +77,18 @@
       p {
         font-size: 1rem;
       }
+
+      .logo {
+        width: 140px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="hero">
-    <div class="overlay"></div>
     <div class="content">
+      <img class="logo" src="https://raw.githubusercontent.com/earthboundtravel/website/833ba727bd27789780094d0bb0afff2f2331b84b/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. Logo" />
       <h1>Oops. You Scanned Something Awesome.</h1>
       <p>We can’t promise abs or enlightenment, but we *can* send you somewhere sunny.</p>
       <a class="cta-btn" href="http://earthbound.travel?utm_source=qr&utm_medium=&utm_campaign=">Explore Escapes</a>
