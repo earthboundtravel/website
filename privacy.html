@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy • Earthbound Travel Co.</title>
+  <meta name="description" content="Privacy policy for Earthbound Travel Co. covering what we collect, how we use information, cookies, analytics, your rights (PIPEDA/GDPR/CPRA), and how to contact us." />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #0f1720;
+      --muted: #cbd5e1;
+      --text: #e2e8f0;
+      --accent: #38bdf8;
+      --accent-2: #f59e0b;
+      --border: #1f2a37;
+      --success: #22c55e;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#475569; --border:#e5e7eb; }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.65; color: var(--text); background: radial-gradient(1200px 800px at 20% -10%, rgba(56,189,248,.08), transparent 55%),
+      radial-gradient(1000px 600px at 120% 10%, rgba(245,158,11,.06), transparent 60%), var(--bg);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(150%) blur(6px);
+      background: linear-gradient(to bottom, rgba(15,23,32,.9), rgba(15,23,32,.65));
+      border-bottom: 1px solid var(--border);
+    }
+    @media (prefers-color-scheme: light) {
+      header { background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.7)); }
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .brand { display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.2px; }
+    .brand .logo { width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:0 6px 18px rgba(56,189,248,.25); }
+    .actions { display:flex; gap:.5rem; align-items:center; }
+    .button { display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .9rem; border:1px solid var(--border); border-radius:999px; color:var(--text); background:rgba(255,255,255,.02); text-decoration:none; font-weight:600; }
+    .button.secondary { background:transparent; }
+    .button:hover { box-shadow:0 8px 24px rgba(56,189,248,.15), inset 0 0 0 9999px rgba(255,255,255,.02); }
+
+    .hero { padding: 3rem 0 1rem; }
+    .title { font-size: clamp(1.8rem, 3vw + .5rem, 3rem); margin: 0 0 .4rem; }
+    .subtitle { margin: 0; color: var(--muted); }
+
+    .policy { display:grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem 0 4rem; }
+    @media (min-width: 960px) { .policy { grid-template-columns: 280px 1fr; align-items:start; } }
+
+    .toc { position: sticky; top: 88px; border:1px solid var(--border); background: var(--card); border-radius: 14px; padding:1rem; }
+    .toc h2 { margin-top:0; font-size:1rem; letter-spacing:.4px; text-transform:uppercase; color:var(--muted); }
+    .toc a { display:block; padding:.35rem .5rem; border-radius:8px; color:var(--text); }
+    .toc a:hover { background: rgba(56,189,248,.08); }
+
+    .card { border:1px solid var(--border); background: var(--card); border-radius: 16px; padding: 1.2rem; }
+    .section h2 { margin-top:0; font-size:1.35rem; }
+
+    details.summary-card { border:1px solid var(--border); background: var(--card); border-radius: 16px; }
+    details.summary-card > summary {
+      cursor: pointer; list-style: none; padding: 1rem 1.2rem; font-weight: 700; border-radius: 16px; position: relative;
+    }
+    details.summary-card > summary::marker, details.summary-card > summary::-webkit-details-marker { display:none; }
+    details.summary-card[open] > summary { border-bottom: 1px solid var(--border); border-bottom-left-radius:0; border-bottom-right-radius:0; }
+    details .content { padding: 1rem 1.2rem; }
+
+    .note { font-size:.95rem; color: var(--muted); }
+    .mono { font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", "Courier New", monospace; }
+    .badge { display:inline-block; font-size:.75rem; border:1px solid var(--border); padding:.25rem .5rem; border-radius:999px; color:var(--muted); }
+
+    .kbd { border:1px solid var(--border); border-bottom:3px solid var(--border); padding:.1rem .35rem; border-radius:6px; font-family:inherit; }
+    .grid-2 { display:grid; gap:1rem; grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+    table { width:100%; border-collapse: collapse; }
+    th, td { text-align:left; padding: .6rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
+
+    .footer { border-top: 1px solid var(--border); margin-top: 2rem; padding: 1.5rem 0 3rem; color: var(--muted); }
+    .small-print { font-size: .9rem; color: var(--muted); }
+
+    .top-btn { position: fixed; right: 16px; bottom: 18px; padding:.6rem .8rem; border-radius: 999px; background: var(--accent); color: #001018; font-weight: 800; border:none; cursor:pointer; box-shadow: 0 8px 22px rgba(56,189,248,.35); }
+    .top-btn:hover { transform: translateY(-1px); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand" aria-label="Earthbound Travel Co.">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Earthbound Travel Co.</span>
+      </div>
+      <div class="actions">
+        <a class="button secondary" href="/" aria-label="Back to home">← Home</a>
+        <button class="button" onclick="window.print()" aria-label="Print this policy">🖨️ Print</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="badge">Based in Ontario, Canada</p>
+      <h1 class="title">Privacy Policy</h1>
+      <p class="subtitle">Last updated: <time datetime="2025-08-27">August 27, 2025</time></p>
+    </section>
+
+    <section class="policy" aria-labelledby="toc-heading">
+      <aside class="toc" role="navigation" aria-label="Privacy policy table of contents">
+        <h2 id="toc-heading">Contents</h2>
+        <a href="#who-we-are">Who we are</a>
+        <a href="#scope">Scope</a>
+        <a href="#info-we-collect">Information we collect</a>
+        <a href="#how-we-use">How we use information</a>
+        <a href="#legal-bases">Legal bases (GDPR)</a>
+        <a href="#sharing">Sharing & disclosures</a>
+        <a href="#international">International transfers</a>
+        <a href="#retention">Retention</a>
+        <a href="#your-rights">Your rights</a>
+        <a href="#cookies">Cookies & tracking</a>
+        <a href="#ads">Advertising & analytics</a>
+        <a href="#communications">Email, SMS & consent</a>
+        <a href="#minors">Children</a>
+        <a href="#security">Security</a>
+        <a href="#supplier">Bookings & travel suppliers</a>
+        <a href="#processors">Our service providers</a>
+        <a href="#changes">Changes to this policy</a>
+        <a href="#contact">Contact us</a>
+      </aside>
+
+      <div class="content">
+        <div id="who-we-are" class="card section" role="region" aria-labelledby="who-we-are-h2">
+          <h2 id="who-we-are-h2">Who we are</h2>
+          <p>Earthbound Travel Co. ("Earthbound", "we", "us", or "our") is a travel planning and advisory service based in Ontario, Canada. We help clients research, plan, and book trips. This Privacy Policy explains how we collect, use, disclose, and protect personal information when you visit our website, interact with our social media, complete forms, schedule consultations, or purchase our services and digital products.</p>
+          <p class="note">If you are a resident of the European Economic Area (EEA), United Kingdom (UK), or the State of California (USA), additional rights may apply. See <a href="#your-rights">Your rights</a>.</p>
+        </div>
+
+        <div id="scope" class="card section" role="region" aria-labelledby="scope-h2">
+          <h2 id="scope-h2">Scope</h2>
+          <p>This policy applies to information collected through our website(s), booking and scheduling tools, email and SMS communications, social media, and when you interact with us as a client or prospective client. It does not cover third‑party websites, apps, or services that we do not control.</p>
+        </div>
+
+        <div id="info-we-collect" class="card section" role="region" aria-labelledby="collect-h2">
+          <h2 id="collect-h2">Information we collect</h2>
+          <div class="grid-2">
+            <div>
+              <h3>Personal information you provide</h3>
+              <ul>
+                <li>Contact details (name, email, phone, address)</li>
+                <li>Traveler details (date of birth, passport/ID data, loyalty numbers, preferences, special requests)</li>
+                <li>Booking details (itinerary, tickets, confirmation numbers, companions)</li>
+                <li>Payment‑related information (handled by secure payment providers; we do not store full card numbers)</li>
+                <li>Communications (messages, call notes, feedback, reviews)</li>
+                <li>Marketing preferences and consent choices</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Information collected automatically</h3>
+              <ul>
+                <li>Device and log data (IP address, browser, pages viewed, timestamps)</li>
+                <li>Approximate location (derived from IP address)</li>
+                <li>Cookies and similar technologies (see <a href="#cookies">Cookies & tracking</a>)</li>
+              </ul>
+              <h3>Information from third parties</h3>
+              <ul>
+                <li>Booking partners, travel suppliers, and host/consortia when needed to service your trip</li>
+                <li>Payment processors regarding transaction status (success/failure, last 4 digits, token)</li>
+                <li>Marketing and analytics partners (aggregated engagement metrics)</li>
+              </ul>
+            </div>
+          </div>
+          <p class="note">Sensitive information: We only collect information such as accessibility needs or dietary restrictions when necessary to fulfill your travel requests, and we handle such details with extra care.</p>
+        </div>
+
+        <div id="how-we-use" class="card section" role="region" aria-labelledby="use-h2">
+          <h2 id="use-h2">How we use information</h2>
+          <ul>
+            <li>Plan, quote, and book travel; manage itineraries and support your trip</li>
+            <li>Operate our website, scheduling, and client service tools</li>
+            <li>Process payments and send purchase confirmations</li>
+            <li>Communicate about services, updates, and policy changes</li>
+            <li>Send marketing communications if you opt in (you can unsubscribe anytime)</li>
+            <li>Improve our offerings, site performance, and customer experience</li>
+            <li>Detect, prevent, or address fraud, abuse, and security incidents</li>
+            <li>Comply with law and enforce our agreements</li>
+          </ul>
+        </div>
+
+        <div id="legal-bases" class="card section" role="region" aria-labelledby="legal-h2">
+          <h2 id="legal-h2">Legal bases for processing (EEA/UK GDPR)</h2>
+          <ul>
+            <li><strong>Contract:</strong> to provide requested travel services and support</li>
+            <li><strong>Consent:</strong> for marketing, certain cookies, or where required for sensitive data</li>
+            <li><strong>Legitimate interests:</strong> to improve services, prevent fraud, and secure our systems (balanced against your rights)</li>
+            <li><strong>Legal obligation:</strong> to comply with applicable laws and regulatory requirements</li>
+          </ul>
+        </div>
+
+        <div id="sharing" class="card section" role="region" aria-labelledby="share-h2">
+          <h2 id="share-h2">Sharing & disclosures</h2>
+          <p>We share personal information only as needed to run our business and fulfill your requests:</p>
+          <ul>
+            <li><strong>Travel suppliers:</strong> airlines, hotels, tour operators, car rentals, cruise lines, and GDS/booking platforms to arrange your trip</li>
+            <li><strong>Service providers:</strong> hosting, scheduling, communications, analytics, payment processing, and customer support tools</li>
+            <li><strong>Business transfers:</strong> as part of a merger, acquisition, or asset sale</li>
+            <li><strong>Legal:</strong> to comply with law, respond to lawful requests, or protect rights and safety</li>
+          </ul>
+          <p>We do not sell your personal information. We may share limited data for cross‑context behavioral advertising where permitted by law; you can opt out (see <a href="#your-rights">Your rights</a>).</p>
+        </div>
+
+        <div id="international" class="card section" role="region" aria-labelledby="intl-h2">
+          <h2 id="intl-h2">International data transfers</h2>
+          <p>We operate from Canada and may transfer information to suppliers and service providers in other countries, including the United States, the EEA/UK, and destinations relevant to your itinerary. Where required, we use appropriate safeguards (such as Standard Contractual Clauses) and take steps to protect your data.</p>
+        </div>
+
+        <div id="retention" class="card section" role="region" aria-labelledby="ret-h2">
+          <h2 id="ret-h2">Retention</h2>
+          <p>We keep personal information only as long as necessary for the purposes described above, to comply with legal obligations, resolve disputes, and enforce agreements. Typical retention periods:</p>
+          <ul>
+            <li>Client and booking records: 7 years after last interaction</li>
+            <li>Communications and support tickets: 3 years</li>
+            <li>Marketing preferences: until you unsubscribe or request deletion</li>
+            <li>Cookie identifiers: 13 months (unless you clear them sooner)</li>
+          </ul>
+        </div>
+
+        <div id="your-rights" class="card section" role="region" aria-labelledby="rights-h2">
+          <h2 id="rights-h2">Your privacy rights</h2>
+          <details class="summary-card">
+            <summary>Canada (PIPEDA & CASL)</summary>
+            <div class="content">
+              <ul>
+                <li>Access the personal information we hold about you</li>
+                <li>Request correction of inaccurate or incomplete information</li>
+                <li>Withdraw consent where processing is based on consent</li>
+                <li>Unsubscribe from marketing emails/SMS at any time</li>
+              </ul>
+            </div>
+          </details>
+          <details class="summary-card">
+            <summary>EEA/UK (GDPR)</summary>
+            <div class="content">
+              <ul>
+                <li>Access, rectification, erasure, restriction, portability, and objection</li>
+                <li>Right to withdraw consent without affecting prior processing</li>
+                <li>Right to lodge a complaint with your local data protection authority</li>
+              </ul>
+            </div>
+          </details>
+          <details class="summary-card">
+            <summary>United States (California & other state laws)</summary>
+            <div class="content">
+              <ul>
+                <li>Right to know/access, delete, correct, and receive information about disclosures</li>
+                <li>Right to opt out of sale/share or targeted advertising; limit use of sensitive information</li>
+                <li>Right to non‑discrimination for exercising your rights</li>
+                <li>We process Global Privacy Control (GPC) signals where legally required</li>
+              </ul>
+            </div>
+          </details>
+          <p><strong>How to exercise your rights:</strong> Email <a href="mailto:hello@earthbound.travel">hello@earthbound.travel</a> with the subject line <span class="mono">Privacy Request</span>. We may need to verify your identity. Authorized agents can submit requests with appropriate proof.</p>
+        </div>
+
+        <div id="cookies" class="card section" role="region" aria-labelledby="cookies-h2">
+          <h2 id="cookies-h2">Cookies & similar technologies</h2>
+          <p>We use cookies, local storage, and pixels to keep our site secure, remember your preferences, understand how our site is used, and (if you opt in) personalize marketing. Categories include:</p>
+          <ul>
+            <li><strong>Essential:</strong> security, fraud prevention, load balancing</li>
+            <li><strong>Functional:</strong> preferences, scheduling, forms</li>
+            <li><strong>Analytics:</strong> site usage and performance measurement</li>
+            <li><strong>Advertising:</strong> retargeting and ad measurement (opt‑in where required)</li>
+          </ul>
+          <p>You can control cookies via your browser settings and device preferences. Some features may not function without essential cookies.</p>
+          <p><button class="button" id="cookieSettingsBtn" type="button">Open cookie preferences</button></p>
+        </div>
+
+        <div id="ads" class="card section" role="region" aria-labelledby="ads-h2">
+          <h2 id="ads-h2">Advertising & analytics</h2>
+          <p>We may use analytics and advertising partners to understand performance and reach potential clients—for example: Google Analytics, Meta Pixel, TikTok Pixel, and email marketing platforms. Where required, we obtain consent before setting non‑essential cookies or pixels.</p>
+          <p>You can opt out of interest‑based advertising via your cookie preferences, the partner settings, or industry tools such as the NAI/DAA opt‑out pages (where available).</p>
+        </div>
+
+        <div id="communications" class="card section" role="region" aria-labelledby="comm-h2">
+          <h2 id="comm-h2">Email, SMS & consent</h2>
+          <p>We send service communications related to inquiries, bookings, and account notices. We send marketing communications only with your consent or as otherwise permitted by law. You can unsubscribe using the link in our emails, replying STOP to SMS (where applicable), or emailing us at <a href="mailto:hello@earthbound.travel">hello@earthbound.travel</a>.</p>
+        </div>
+
+        <div id="minors" class="card section" role="region" aria-labelledby="kids-h2">
+          <h2 id="kids-h2">Children's privacy</h2>
+          <p>Our services are not directed to children under 13. We may collect limited information about minors only as necessary to book family travel at a parent or guardian’s request. If you believe a child provided personal information without consent, contact us and we will take appropriate steps to remove it.</p>
+        </div>
+
+        <div id="security" class="card section" role="region" aria-labelledby="sec-h2">
+          <h2 id="sec-h2">Security</h2>
+          <p>We use technical and organizational measures designed to protect personal information, including encryption in transit (HTTPS), access controls, and least‑privilege practices. No method of transmission or storage is 100% secure; if we detect a breach affecting your data, we will notify you and regulators as required by law.</p>
+        </div>
+
+        <div id="supplier" class="card section" role="region" aria-labelledby="supplier-h2">
+          <h2 id="supplier-h2">Bookings & travel suppliers</h2>
+          <p>To plan and deliver your trip, we share necessary traveler details with relevant suppliers (e.g., airlines, hotels, tour operators). Those parties process your data under their own privacy policies and may be located in other countries. We recommend reviewing the privacy policies of the suppliers included in your itinerary.</p>
+        </div>
+
+        <div id="processors" class="card section" role="region" aria-labelledby="proc-h2">
+          <h2 id="proc-h2">Our service providers (examples)</h2>
+          <p class="note">This list is illustrative and may change. We use contracts and safeguards to protect your information. Some services are enabled only if you opt in.</p>
+          <div class="grid-2">
+            <div class="card" style="padding:0">
+              <table aria-label="Core services">
+                <thead>
+                  <tr><th>Service</th><th>Purpose</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Website hosting / CDN</td><td>Serve the website and assets reliably</td></tr>
+                  <tr><td>Scheduling (e.g., Calendly)</td><td>Consultation bookings and reminders</td></tr>
+                  <tr><td>Email marketing (e.g., Mailchimp/Klaviyo)</td><td>Newsletters, updates (with consent)</td></tr>
+                  <tr><td>Analytics (e.g., Google Analytics)</td><td>Site performance & usage insights</td></tr>
+                  <tr><td>Advertising pixels (e.g., Meta/TikTok)</td><td>Ad measurement & reach (consent‑based)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card" style="padding:0">
+              <table aria-label="Payments & bookings">
+                <thead>
+                  <tr><th>Service</th><th>Purpose</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Payment processors (e.g., Stripe/PayPal)</td><td>Secure payments; we do not store full card details</td></tr>
+                  <tr><td>Document collection (e.g., secure forms)</td><td>Collect passport/ID details when required for bookings</td></tr>
+                  <tr><td>Travel suppliers & aggregators</td><td>Fulfill bookings and manage itineraries</td></tr>
+                  <tr><td>Cloud storage</td><td>Store documents and itineraries securely</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="changes" class="card section" role="region" aria-labelledby="chg-h2">
+          <h2 id="chg-h2">Changes to this policy</h2>
+          <p>We may update this Privacy Policy to reflect changes to our practices or legal requirements. We will post the revised version with an updated date and, if changes are material, provide additional notice.</p>
+        </div>
+
+        <div id="contact" class="card section" role="region" aria-labelledby="contact-h2">
+          <h2 id="contact-h2">Contact us</h2>
+          <p>If you have questions or requests regarding this policy, contact us at:</p>
+          <p><strong>Earthbound Travel Co.</strong><br />Toronto, ON, Canada<br />Email: <a href="mailto:hello@earthbound.travel">hello@earthbound.travel</a></p>
+          <p class="small-print">This page is provided for general informational purposes and does not constitute legal advice. Consider consulting a privacy professional to tailor this policy to your operations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer wrap">
+      <div class="small-print">© <span id="year"></span> Earthbound Travel Co. • All rights reserved.</div>
+    </section>
+  </main>
+
+  <button class="top-btn" title="Back to top" aria-label="Back to top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Minimal cookie preference stub (replace with your CMP)
+    const btn = document.getElementById('cookieSettingsBtn');
+    btn?.addEventListener('click', () => {
+      const prefs = JSON.parse(localStorage.getItem('eb_prefs') || '{}');
+      const enable = confirm('Advertising & analytics cookies are currently ' + (prefs.ads ? 'ENABLED' : 'DISABLED') + '.\n\nPress OK to toggle.');
+      const newState = { ads: !prefs.ads };
+      localStorage.setItem('eb_prefs', JSON.stringify(newState));
+      alert('Advertising & analytics cookies are now ' + (newState.ads ? 'ENABLED' : 'DISABLED') + '.');
+    });
+  </script>
+</body>
+</html>
