@@ -14,102 +14,98 @@
       --accent: #38bdf8;
       --accent-2: #f59e0b;
       --border: #1f2a37;
-      --success: #22c55e;
+      --header-h: 64px; /* will be recalculated via JS for safety */
     }
     @media (prefers-color-scheme: light) {
       :root { --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#475569; --border:#e5e7eb; }
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
-    body {
-      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      line-height: 1.65; color: var(--text); background: radial-gradient(1200px 800px at 20% -10%, rgba(56,189,248,.08), transparent 55%),
-      radial-gradient(1000px 600px at 120% 10%, rgba(245,158,11,.06), transparent 60%), var(--bg);
-    }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.65; color: var(--text); background: var(--bg); padding-top: var(--header-h); }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    header {
-      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(150%) blur(6px);
-      background: linear-gradient(to bottom, rgba(15,23,32,.9), rgba(15,23,32,.65));
-      border-bottom: 1px solid var(--border);
-    }
-    @media (prefers-color-scheme: light) {
-      header { background: linear-gradient(to bottom, rgba(255,255,255,.9), rgba(255,255,255,.7)); }
-    }
+
+    /* Fixed (always-floating) header */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--card); border-bottom: 1px solid var(--border); backdrop-filter: saturate(140%) blur(6px); }
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
-    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
+    .nav { display:flex; align-items:center; justify-content:space-between; min-height:64px; }
+
     .brand { display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.2px; }
-    .brand .logo { width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:0 6px 18px rgba(56,189,248,.25); }
+    .brand img { width: 104px; height:auto; display:block; object-fit: contain; }
+    @media (max-width: 600px) { .brand img { width: 92px; } }
+
     .actions { display:flex; gap:.5rem; align-items:center; }
-    .button { display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .9rem; border:1px solid var(--border); border-radius:999px; color:var(--text); background:rgba(255,255,255,.02); text-decoration:none; font-weight:600; }
-    .button.secondary { background:transparent; }
-    .button:hover { box-shadow:0 8px 24px rgba(56,189,248,.15), inset 0 0 0 9999px rgba(255,255,255,.02); }
+    .button { display:inline-flex; align-items:center; gap:.5rem; padding:.55rem .9rem; border:1px solid var(--border); border-radius:999px; color: var(--text); background:rgba(255,255,255,.02); text-decoration:none; font-weight:600; }
 
     .hero { padding: 3rem 0 1rem; }
     .title { font-size: clamp(1.8rem, 3vw + .5rem, 3rem); margin: 0 0 .4rem; }
     .subtitle { margin: 0; color: var(--muted); }
 
-    .policy { display:grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem 0 4rem; }
-    @media (min-width: 960px) { .policy { grid-template-columns: 280px 1fr; align-items:start; } }
+    .policy { display:flex; flex-direction: column; gap: 1.5rem; padding: 1rem 0 4rem; }
+    @media (min-width: 960px) { .policy { flex-direction: row; } }
 
-    .toc { position: sticky; top: 88px; border:1px solid var(--border); background: var(--card); border-radius: 14px; padding:1rem; }
-    .toc h2 { margin-top:0; font-size:1rem; letter-spacing:.4px; text-transform:uppercase; color:var(--muted); }
-    .toc a { display:block; padding:.35rem .5rem; border-radius:8px; color:var(--text); }
+    /* TOC */
+    .toc { border:1px solid var(--border); background: var(--card); border-radius: 14px; padding:1rem; margin-bottom:1rem; }
+    @media (min-width: 960px) { .toc { position: sticky; top: calc(var(--header-h) + 24px); flex: 0 0 280px; margin-bottom:0; display:block !important; } }
+    .toc h2 { margin-top:0; font-size:1rem; letter-spacing:.4px; text-transform:uppercase; color: var(--muted); }
+    .toc a { display:block; padding:.35rem .5rem; border-radius:8px; color: var(--text); }
     .toc a:hover { background: rgba(56,189,248,.08); }
 
-    .card { border:1px solid var(--border); background: var(--card); border-radius: 16px; padding: 1.2rem; }
-    .section h2 { margin-top:0; font-size:1.35rem; }
+    /* Hamburger */
+    .toc-toggle { display:flex; align-items:center; gap:.5rem; padding:.55rem .9rem; border:1px solid var(--border); border-radius:12px; background: var(--card); color: var(--text); font-weight:700; cursor:pointer; }
+    .toc-toggle svg { width:18px; height:18px; }
+    @media (min-width: 960px) { .toc-toggle { display:none; } }
+    /* Mobile: hide TOC by default */
+    .toc { display:none; }
+    .toc.open { display:block; }
 
-    details.summary-card { border:1px solid var(--border); background: var(--card); border-radius: 16px; }
-    details.summary-card > summary {
-      cursor: pointer; list-style: none; padding: 1rem 1.2rem; font-weight: 700; border-radius: 16px; position: relative;
-    }
-    details.summary-card > summary::marker, details.summary-card > summary::-webkit-details-marker { display:none; }
-    details.summary-card[open] > summary { border-bottom: 1px solid var(--border); border-bottom-left-radius:0; border-bottom-right-radius:0; }
-    details .content { padding: 1rem 1.2rem; }
-
-    .note { font-size:.95rem; color: var(--muted); }
-    .mono { font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", "Courier New", monospace; }
-    .badge { display:inline-block; font-size:.75rem; border:1px solid var(--border); padding:.25rem .5rem; border-radius:999px; color:var(--muted); }
-
-    .kbd { border:1px solid var(--border); border-bottom:3px solid var(--border); padding:.1rem .35rem; border-radius:6px; font-family:inherit; }
-    .grid-2 { display:grid; gap:1rem; grid-template-columns: 1fr; }
-    @media (min-width: 720px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
-
-    table { width:100%; border-collapse: collapse; }
-    th, td { text-align:left; padding: .6rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-    th { color: var(--muted); font-weight: 600; }
+    .content { flex: 1; }
+    .card { border:1px solid var(--border); background: var(--card); border-radius: 16px; padding: 1.2rem; margin-bottom:1rem; }
 
     .footer { border-top: 1px solid var(--border); margin-top: 2rem; padding: 1.5rem 0 3rem; color: var(--muted); }
     .small-print { font-size: .9rem; color: var(--muted); }
 
-    .top-btn { position: fixed; right: 16px; bottom: 18px; padding:.6rem .8rem; border-radius: 999px; background: var(--accent); color: #001018; font-weight: 800; border:none; cursor:pointer; box-shadow: 0 8px 22px rgba(56,189,248,.35); }
-    .top-btn:hover { transform: translateY(-1px); }
+    .top-btn { position: fixed; right: 16px; bottom: 18px; padding:.6rem .8rem; border-radius: 999px; background: var(--accent); color: #001018; font-weight: 800; border:none; cursor:pointer; }
+
+    /* Utility */
+    .grid-2 { display:grid; gap:1rem; grid-template-columns: 1fr; }
+    @media (min-width: 720px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    .note { color: var(--muted); }
+    details.summary-card { border:1px solid var(--border); background: var(--card); border-radius: 16px; }
+    details.summary-card > summary { cursor: pointer; list-style: none; padding: 1rem 1.2rem; font-weight: 700; border-radius: 16px; }
+    details.summary-card[open] > summary { border-bottom: 1px solid var(--border); border-bottom-left-radius:0; border-bottom-right-radius:0; }
+    details .content { padding: 1rem 1.2rem; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { text-align:left; padding: .6rem .5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <div class="brand" aria-label="Earthbound Travel Co.">
-        <span class="logo" aria-hidden="true"></span>
-        <span>Earthbound Travel Co.</span>
-      </div>
+      <a class="brand" aria-label="Earthbound Travel Co." href="https://earthbound.travel">
+        <img src="https://raw.githubusercontent.com/earthboundtravel/website/refs/heads/main/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. logo" />
+      </a>
       <div class="actions">
-        <a class="button secondary" href="/" aria-label="Back to home">← Home</a>
-        <button class="button" onclick="window.print()" aria-label="Print this policy">🖨️ Print</button>
+        <button id="tocToggle" class="toc-toggle" aria-controls="toc" aria-expanded="false" title="Open contents">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+          Menu
+        </button>
+        <a class="button" href="https://earthbound.travel" aria-label="Back to home">← Home</a>
+        <a class="button" href="#contact" aria-label="Contact Earthbound">Contact</a>
       </div>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <p class="badge">Based in Ontario, Canada</p>
+      <p class="subtitle">Based in Ontario, Canada</p>
       <h1 class="title">Privacy Policy</h1>
       <p class="subtitle">Last updated: <time datetime="2025-08-27">August 27, 2025</time></p>
     </section>
 
     <section class="policy" aria-labelledby="toc-heading">
-      <aside class="toc" role="navigation" aria-label="Privacy policy table of contents">
+      <aside id="toc" class="toc" role="navigation" aria-label="Privacy policy table of contents">
         <h2 id="toc-heading">Contents</h2>
         <a href="#who-we-are">Who we are</a>
         <a href="#scope">Scope</a>
@@ -261,7 +257,7 @@
               </ul>
             </div>
           </details>
-          <p><strong>How to exercise your rights:</strong> Email <a href="mailto:hello@earthbound.travel">hello@earthbound.travel</a> with the subject line <span class="mono">Privacy Request</span>. We may need to verify your identity. Authorized agents can submit requests with appropriate proof.</p>
+          <p><strong>How to exercise your rights:</strong> Email <a href="mailto:admin@earthbound.travel">admin@earthbound.travel</a> with the subject line <span class="mono">Privacy Request</span>. We may need to verify your identity. Authorized agents can submit requests with appropriate proof.</p>
         </div>
 
         <div id="cookies" class="card section" role="region" aria-labelledby="cookies-h2">
@@ -285,7 +281,7 @@
 
         <div id="communications" class="card section" role="region" aria-labelledby="comm-h2">
           <h2 id="comm-h2">Email, SMS & consent</h2>
-          <p>We send service communications related to inquiries, bookings, and account notices. We send marketing communications only with your consent or as otherwise permitted by law. You can unsubscribe using the link in our emails, replying STOP to SMS (where applicable), or emailing us at <a href="mailto:hello@earthbound.travel">hello@earthbound.travel</a>.</p>
+          <p>We send service communications related to inquiries, bookings, and account notices. We send marketing communications only with your consent or as otherwise permitted by law. You can unsubscribe using the link in our emails, replying STOP to SMS (where applicable), or emailing us at <a href="mailto:admin@earthbound.travel">admin@earthbound.travel</a>.</p>
         </div>
 
         <div id="minors" class="card section" role="region" aria-labelledby="kids-h2">
@@ -345,7 +341,7 @@
         <div id="contact" class="card section" role="region" aria-labelledby="contact-h2">
           <h2 id="contact-h2">Contact us</h2>
           <p>If you have questions or requests regarding this policy, contact us at:</p>
-          <p><strong>Earthbound Travel Co.</strong><br />Toronto, ON, Canada<br />Email: <a href="mailto:hello@earthbound.travel">hello@earthbound.travel</a></p>
+          <p><strong>Earthbound Travel Co.</strong><br />Toronto, ON, Canada<br />Email: <a href="mailto:admin@earthbound.travel">admin@earthbound.travel</a></p>
           <p class="small-print">This page is provided for general informational purposes and does not constitute legal advice. Consider consulting a privacy professional to tailor this policy to your operations.</p>
         </div>
       </div>
@@ -362,15 +358,42 @@
     // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Minimal cookie preference stub (replace with your CMP)
+    // Recalculate header height (handles wrapping on mobile) and set padding-top
+    function setHeaderHeight() {
+      const h = document.querySelector('header');
+      if (!h) return;
+      const px = h.offsetHeight + 'px';
+      document.documentElement.style.setProperty('--header-h', px);
+    }
+    window.addEventListener('load', setHeaderHeight);
+    window.addEventListener('resize', setHeaderHeight);
+
+    // Cookie preference stub (replace with your CMP)
     const btn = document.getElementById('cookieSettingsBtn');
     btn?.addEventListener('click', () => {
       const prefs = JSON.parse(localStorage.getItem('eb_prefs') || '{}');
-      const enable = confirm('Advertising & analytics cookies are currently ' + (prefs.ads ? 'ENABLED' : 'DISABLED') + '.\n\nPress OK to toggle.');
       const newState = { ads: !prefs.ads };
       localStorage.setItem('eb_prefs', JSON.stringify(newState));
       alert('Advertising & analytics cookies are now ' + (newState.ads ? 'ENABLED' : 'DISABLED') + '.');
     });
+
+    // Hamburger toggle for TOC on mobile
+    const tocToggle = document.getElementById('tocToggle');
+    const toc = document.getElementById('toc');
+    tocToggle?.addEventListener('click', () => {
+      const open = toc.classList.toggle('open');
+      tocToggle.setAttribute('aria-expanded', String(open));
+      tocToggle.title = open ? 'Close contents' : 'Open contents';
+      if (open) toc.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Auto-close TOC on link click (mobile)
+    toc?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 959px)').matches) {
+        toc.classList.remove('open');
+        tocToggle?.setAttribute('aria-expanded', 'false');
+      }
+    }));
   </script>
 </body>
 </html>
