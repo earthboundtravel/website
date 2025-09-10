@@ -24,14 +24,33 @@
     h2.section-title{font-size:clamp(20px,3.6vw,26px);margin:8px 0}
 
     /* Hero */
-    .hero{position:relative;overflow:hidden;border-radius:24px;
-      background:linear-gradient(135deg, rgba(31,122,140,.95), rgba(11,53,83,.95)),
-                 url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
-      background-size:cover;background-position:center;color:var(--foam);
-      padding:clamp(48px,6vw,80px) clamp(16px,3vw,28px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+    .hero{
+        position:relative; overflow:hidden; border-radius:24px;
+        background:
+          linear-gradient(135deg, rgba(31,122,140,.55), rgba(11,53,83,.55)),
+          url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+        background-size:cover; background-position:center; color:var(--foam);
+        padding:clamp(48px,6vw,80px) clamp(16px,3vw,28px);
+        box-shadow:0 10px 30px rgba(0,0,0,.12);
+      }
     .hero-inner{max-width:860px;margin:0 auto;text-align:center}
     .logos{display:flex;justify-content:center;align-items:center;gap:clamp(12px,2.2vw,24px);margin-bottom:clamp(12px,1.8vw,20px)}
-    .logos img{height:clamp(54px,8vw,84px);width:auto;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+    
+
+/* Base rule stays as-is for all logos */
+.logos img{
+  height: clamp(54px, 8vw, 84px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+
+.logos img.logo-eb {
+  height: clamp(90px, 12vw, 140px); /* bigger at all sizes */
+}
+
+
+
     h1{font-size:clamp(26px,5.2vw,44px);line-height:1.1;margin:8px 0 12px}
     .tag{font-size:clamp(14px,3.2vw,18px);opacity:.95}
     .cheeky{font-weight:800;margin:14px auto 24px;font-size:clamp(16px,3.4vw,22px)}
@@ -77,7 +96,16 @@
     @media (max-width:900px){
       .cards{grid-template-columns:1fr 1fr}
       .reviews{grid-template-columns:1fr}
+    
     }
+
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .hero {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+    }
+
     @media (max-width:640px){
       .logos{flex-direction:column}
       .intro{grid-template-columns:1fr;justify-items:center;text-align:center}
@@ -87,7 +115,23 @@
       .cta-row{flex-direction:column;align-items:center}
       .cta-row .btn{width:100%;max-width:260px}
       .cards{grid-template-columns:1fr}
+      .hero {
+        border-radius: 0;
+      }
+     }
+
+    @media (max-width:640px) {
+  /* Make the Earthbound logo larger on mobile */
+      .logos img.logo-eb {
+        height: 120px !important;   /* or larger if you want */
+      }
+
+        .advisor-sub .title-wrap {
+        display: block;   /* forces line break */
+        margin-top: 4px;  /* small spacing between lines */
+       }
     }
+
 
     html {
       scroll-behavior: smooth;
@@ -153,7 +197,48 @@
       display: flex;
     }
 
+    /* Make the Earthbound logo slightly bigger than the default */
+  .logo-eb{
+      height: clamp(100px, 9vw, 130px);
+      width: auto;
+    }
 
+/* --- Fix intro colors when intro is moved inside .hero --- */
+.hero .intro{
+  background: rgba(255,255,255,0.92); /* keep the frosted card look */
+  color: var(--ink);                   /* reset text color to dark */
+}
+
+/* Be explicit for common text elements */
+.hero .intro h1,
+.hero .intro h2,
+.hero .intro h3,
+.hero .intro p,
+.hero .intro .pitch,
+.hero .intro .name,
+.hero .intro .advisor-sub {
+  color: var(--ink);
+}
+
+/* Social buttons inside intro */
+.hero .intro .socials a{
+  background:#fff;
+  color: var(--ink);
+}
+
+/* Social icons (if using inline SVG) */
+.hero .intro .socials svg{
+  color: var(--ink); fill: currentColor;
+}
+
+/* Keep hero CTAs white text; only intro buttons switch to dark if needed */
+.hero .intro .btn{
+  color: var(--ink);
+  box-shadow: 0 6px 16px rgba(0,0,0,.14);
+}
+
+.hero { padding-bottom: 32px; }
+.intro { margin-top: 0; }
 
   </style>
 </head>
@@ -162,27 +247,33 @@
   <header class="container hero" id="top">
     <div class="hero-inner">
       <div class="logos">
-        <a href="https://www.foratravel.com/" target="_blank"><img src="https://www.google.com/u/1/ac/images/logo.gif?uid=102917660742251223982&service=google_gsuite" alt="Fora Travel logo"></a>
+        <a href="https://www.foratravel.com/" target="_blank"><img src="https://framerusercontent.com/images/C2Efs5UCA7WsBb7MgYcNTGHJhRg.svg" alt="Fora Travel logo"></a>
         +
-        <a href="https://earthbound.travel?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=qr&utm_term=websitelogo" target="_blank"><img src="https://lh3.googleusercontent.com/rd-d/ALs6j_HuX7utD4V1JVupLK0m64BXlv0uAs8JiJ13VOpyhqIAnQ72VohCWmyGJVcIj4neROW_dOgFYiUq-s4zlfvi-GmSMumSGd8wBWzCB0rNVj7ODy_MCYx5FJKn-ZvQboINvu435kk7OWEDXASMXQTCj9RBgY6p7GU6XFLotghrsemT5pyNFO17WBgiOwG5jewhd-ybMgerPLcpDpBYAKtFbb-apJzc8AUq-TQjSHFfac_wKHFXG8uWApR2YQV-P7Zlpfsoh9i-N6TITEfncaaihCgzY2FjtxcPYJQLlsB4ZSOxGCd222sWwOGjgMgCJoK90FFGPfG3eRT05fIgszxFcn67tFDG9D9PdY8d1lCDqP3IeOiuJfqHQm2gOqB47-MYu-VLya5ABdCX2WYKu_mdTV5qDEN30-ZRqImB5w7iyoyBngEyNvmnHuiHpk4xOt0Esoqqi5l4HWqrDADs46wJL5O-abNs591v29QykJJfuaA6HgqIFGaiGclEvomwrOSZX_8VNIHoDEAHPwqXL_EbHhuYSio9gQgb2DfMlXh_B3_MBUv3QJKLSoMZsdgI-5GZBpuDvsplD97H3yWnSlVjfv_C4EgCDwjB6M1WRZziaoANXCV3IwVgHmD39aPkua_2mz25ZkEdLXw3Zza3lWliTMuszz3VzOpQX5s7cbH2YhUCLrWeuFMaBGGUmLFjgtOcC1OVL930JhHc4oCHOe4WeEKyf8DQAvpsIkvDsI3A49KWfAn7a_-SBD8mLr10sTYyAJPXmalmYpn9-26JQqRnPzcs8wGcyeMLICiPa7MKG0POgMb6e3xOfXVEMcEkfu5fl_pVu0oI9XnaPEBouyUQb3U_u1oLy-tRXW4srkOM6cOLPLCs7Lu28aYAeCY4SShjkTcAIu3fquOLikbEYehyQHlWok8qwx-G4Y4Je4KJeDtK3bfgkWYxTtY9cix21ndDBSi0ZGNTcwc0yubSXn2rKUTS314rkS9V7ZKdXI19bqDmgieOfMu6nUw85zee9SZcJqHebor8IhKnWXezq5nt_9LexGh-VFM7eZ9b=w3420-h1896?auditContext=prefetch" alt="Earthbound Travel Co. logo"></a>
+        <a href="https://earthbound.travel?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=qr&utm_term=websitelogo" target="_blank"><img class="logo-eb" src="https://framerusercontent.com/images/KQEx7LXato5PK8Xjk9qwytoP0E.png" alt="Earthbound Travel Co. logo"></a>
       </div>
       <h1>Have you said "Yes" to the dress? </h1>
       <p class="cheeky">Great! Now let’s turn the “I do” into a “Where to?”</p>
       
+      <!--
       <a class="btn" style="background:var(--ink)" href="#services" rel="noopener">My Services</a>&nbsp;
       <a class="btn" style="background:var(--ink)" href="#reviews" rel="noopener">My Reviews</a>
 
-    </div>
-  </header>
+      -->
 
-  <main class="container">
+    </div>
+
     <!-- INTRO -->
     <section class="intro" id="contact">
       <img src="https://res.cloudinary.com/foratravelweb/image/upload/c_fill%2Cg_auto%2Ch_640%2Cw_640/f_webp/q_90/edf3510e-7c98-423c-ae68-6b7fd3bab1f9?_a=DATAg1XyZAA0" alt="Sheroy Mistry profile photo" />
       <div>
-        <span class="advisor-sub">Hi, i'm <b class="name">Sheroy Mistry</b>, your personal Travel Advisor.</span>
+       <span class="advisor-sub">
+          <b class="name">
+            Hi! I'm <span style="color:maroon">Sheroy Mistry</span>,
+            <span class="title-wrap">your personal Travel Advisor.</span>
+          </b>
+        </span>
         
-        <p class="pitch">I can plan  a luxury, bespoke, stress-free trip so you can celebrate more and worry less!</p>
+        <p class="pitch">I can plan a luxury, bespoke, stress-free trip so you can celebrate more and worry less!</p>
         <p class="pitch">You can contact me using any of the options below...</p>
         <div class="socials">
           <a target="_blank" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">Fora Profile</a>
@@ -197,9 +288,14 @@
         </div>
       </div>
     </section>
+
+  </header>
+
+  <main class="container">
+    
     
     <!-- CARDS -->
-   <br>
+  
    <h2 class="section-title" id="services">My Services</h2>
 
 
@@ -331,7 +427,7 @@
   </main>
 
   <footer>
-    © <a href="https://earthbound.travel" target="_blank"><b>Earthbound Travel Co.</b></a> is the personal brand of Sheroy Mistry ·  <a href="mailto:sheroy.mistry@fora.travel">sheroy.mistry@fora.travel</a>
+    <a href="https://earthbound.travel" target="_blank"><b>Earthbound Travel Co.</b></a> is the personal brand of Sheroy Mistry
   </footer>
 
 <!-- Floating Action Button -->
@@ -351,7 +447,6 @@
   <div class="fab-menu" id="fabMenu">
     <a href="#services">Browse Services</a>
     <a href="#reviews">See Reviews</a>
-    <a href="https://calendly.com/earthbound-travel" target="_blank">Book a Consult</a>
     <a href="#contact">Contact Me</a>
   </div>
 </div>
