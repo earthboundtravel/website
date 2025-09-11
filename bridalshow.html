@@ -120,22 +120,78 @@
       }
      }
 
-    @media (max-width:640px) {
-  /* Make the Earthbound logo larger on mobile */
-      .logos img.logo-eb {
-        height: 120px !important;   /* or larger if you want */
-      }
+@media (max-width: 640px) {
 
-        .advisor-sub .title-wrap {
-        display: block;   /* forces line break */
-        margin-top: 4px;  /* small spacing between lines */
-       }
+  /* Keep logos side-by-side but scale Earthbound larger */
+  .logos {
+    flex-direction: row;       /* stay inline */
+    flex-wrap: wrap;           /* wrap together if too tight */
+    justify-content: center;
+    gap: 12px;
+  }
 
-        .wrap-mobile {
-            display: block;     /* forces a new line */
-            margin-top: 4px;    /* small spacing so it doesn’t feel cramped */
-          }
-    }
+  .logos img.logo-eb {
+    height: 120px !important;  /* bump size on mobile */
+  }
+
+  /* Intro layout tweaks */
+  .intro {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .intro img {
+    width: 96px;
+    height: 96px;
+  }
+
+  /* Put advisor subtitle on its own line */
+  .intro .advisor-sub {
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Utility class for breaking lines nicely */
+  .wrap-mobile {
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Social grid becomes 2x2 */
+  .socials {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Stack CTA buttons */
+  .cta-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-row .btn {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  /* Single-column cards */
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Remove rounded edges on hero for full bleed look */
+  .hero {
+    border-radius: 0;
+  }
+
+  /* Keep pitch balanced for 2-line wrap */
+  .hero .intro .pitch {
+    max-width: 20ch;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+}
+
 
 
     html {
@@ -245,6 +301,97 @@
 .hero { padding-bottom: 32px; }
 .intro { margin-top: 0; }
 
+
+.reviews-section summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 14px 18px;
+  background: var(--sea);
+  color: #fff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  list-style: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+
+.reviews-section[open] summary {
+  background: var(--sun);
+  color: #402b1e;
+}
+
+.reviews-section summary::-webkit-details-marker {
+  display: none; /* hides default arrow */
+}
+
+/* Default state */
+.hero .intro .socials a {
+  background: #fff;
+  color: var(--ink);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Hover only (when hovering) */
+.hero .intro .socials a:hover {
+  background: var(--sun);   /* sunset orange */
+  color: #402b1e;
+}
+
+/* Active (during the click press) */
+.hero .intro .socials a:active {
+  background: var(--sea);   /* teal while pressed */
+  color: #fff;
+}
+
+/* Reset focus so it doesn’t stay highlighted after click */
+.hero .intro .socials a:focus {
+  background: #fff;
+  color: var(--ink);
+  outline: none; /* optional: removes the browser outline */
+}
+
+.site-footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.site-footer .footer-inner {
+  max-width: 900px;     /* match your page content width */
+  margin: 0 auto;       /* center horizontally */
+  padding: 0 16px;      /* some side padding for small screens */
+  text-align: center;
+  line-height: 1.6;
+}
+
+.site-footer a {
+  color: var(--sea);
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(31,122,140,0.5);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.site-footer a:hover {
+  color: var(--sun);
+  border-color: var(--sun);
+}
+
+.site-footer .disclaimer {
+  margin-bottom: 12px;
+}
+
+.site-footer .tico {
+  margin: 8px 0;
+  font-weight: 600;
+}
+
+.site-footer .shop-link {
+  margin-top: 12px;
+  font-style: italic;
+}
+
+
   </style>
 </head>
 <body><br>
@@ -307,7 +454,8 @@
   
    <h2 class="section-title" id="services">My Services</h2>
 
-
+    <details class="reviews-section">
+    <summary>Click to see my Services</summary>
     <section id="ideas" class="grid cards">
 
       <!-- Honeymoon -->
@@ -409,11 +557,14 @@
   </div>
 </article>
 
-
     </section>
+  </details>
 
     <!-- REVIEWS -->
     <h2 class="section-title" id="reviews">Client Reviews</h2>     
+    <details class="reviews-section">
+    <summary>Click to see Client Reviews</summary>
+
     <section class="grid reviews">
       <article class="quote"><p>“Sheroy was a total life saver. We were booked in another hotel initially however when we got to the hotel it was very dated and just not we had expected. We contacted Sheroy right away for his help to change hotels and within 20 mins we were not only booked into a new hotel Castillo ( great recommendation from Sheroy) but also received a full refund for our stay at the initial hotel even though we had passed the cancellation date. Sheroy acted swiftly, was extremely attentive to our needs and took charge of the whole situation. At the end of it, we had the most memorable vacation all thanks to our travel advisor Sheroy. Thank You Sheroy! You earned a client for life.”</p><span class="meta">— Meherzad E.<br>Booked travel to Spain in August 2025</span></article>
       <article class="quote"><p>"We asked Sheroy to help us book a family holiday in Vancouver. We wanted a comfortable studio suite within a family-friendly hotel and a rental car for the week. Sheroy really delivered and took all the stress of planning and booking a holiday off our shoulders! He gave us several options with respect to airplane flights, accommodations, and cultural excursions, and we were so happy with the travel package he put together! We had a wonderful time, the hotel was terrific with excellent facilities (especially for kids) and the location was ideal. We are so glad we used Sheroy for our trip!"</p><span class="meta">— Victor L.<br>Booked travel to Vancouver in August 2025</span></article>
@@ -425,19 +576,36 @@
         <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">See More Reviews</a>
       </div>
     </section>
+    </details>
 
-    <!-- FINAL CTA -->
-    <section class="final">
-      <h2>From the aisle to the adventure...shall we begin?</h2>
-      <div class="cta-row">
-        <a class="btn primary" href="#contact">YES, Let's Begin!</a>
-      </div>
-    </section>
+   
   </main>
 
-  <footer>
-    <a href="https://earthbound.travel" target="_blank"><b>Earthbound Travel Co.</b></a> is the personal brand of Sheroy Mistry
-  </footer>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="disclaimer">
+      <a href="https://earthbound.travel?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=link&utm_term=companylink" target="_blank">
+        <strong>Earthbound Travel Co.</strong>
+      </a> is my personal brand.  
+      All travel bookings and reservations are fulfilled under the 
+      <a href="https://www.foratravel.com/" target="_blank"><strong>Fora Travel Inc.</strong></a> umbrella,  
+      a registered and accredited travel agency.
+    </p>
+
+    <p class="tico">
+      <a href="https://tico.ca/search/DirectoryDetails.aspx?id=50027942" target="_blank">TICO Registration No. 50027942</a>
+    </p>
+
+    <p class="shop-link">
+      Visit the 
+      <a href="https://earthboundtravel.shop/?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=link&utm_term=shoplink" target="_blank">
+        <strong>Earthbound Travel Shop</strong>
+      </a> for exclusive merch and books designed by me.
+    </p>
+  </div>
+</footer>
+
+
 
 <!-- Floating Action Button -->
 
