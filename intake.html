@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Earthbound Travel Co. — Bridal Show Lead Capture</title>
+  <style>
+    :root{
+      --brand-1:#0f4c5c;
+      --brand-2:#ff7a59;
+      --brand-3:#f4efe9;
+      --ink:#0d1b2a;
+      --muted:#6b7280;
+      --bg:#ffffff;
+      --ok:#0ea5a0;
+      --err:#b91c1c;
+      --radius:14px;
+      --shadow:0 12px 28px rgba(0,0,0,.08);
+      --field:#e5e7eb;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+      color:var(--ink);background:linear-gradient(180deg,var(--brand-3),#fff);
+    }
+    a{color:inherit}
+    .wrap{max-width:960px;margin:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+    header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--bg);padding:14px 16px;
+      border-radius:var(--radius);box-shadow:var(--shadow)}
+    header img.logo{height:44px;width:auto}
+    header .title{flex:1 1 300px}
+    header h1{font-size:20px;margin:0}
+    header p{margin:4px 0 0;color:var(--muted);font-size:14px}
+    form{background:var(--bg);padding:18px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(12,minmax(0,1fr))}
+    .col-12{grid-column:span 12}.col-6{grid-column:span 6}
+    @media (max-width:900px){.col-6{grid-column:span 12}}
+    label{display:block;font-weight:650;margin-bottom:6px}
+    .req::after{content:" *";color:var(--brand-2)}
+    input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--field);font-size:16px;background:#fff}
+    input:focus,select:focus,textarea:focus{outline:0;box-shadow:0 0 0 4px rgba(15,76,92,.12)}
+    textarea{min-height:120px;resize:vertical}
+    fieldset{border:1px solid var(--field);border-radius:12px;padding:12px}
+    fieldset legend{padding:0 8px;color:var(--muted);font-size:14px}
+    .checks{display:flex;flex-wrap:wrap;gap:10px 16px}
+    .checks.columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 16px}
+    .check-item{display:flex;align-items:center;gap:10px;line-height:1.25;font-weight:550;cursor:pointer;min-height:40px}
+    .check-item input{width:18px;height:18px;margin:0}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .btn{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer}
+    .btn-primary{background:var(--brand-2);color:#fff}
+    .btn-outline{background:#fff;border:1px solid var(--field);color:var(--ink)}
+    .note-card{margin-top:12px;background:#fff;border-left:4px solid var(--brand-1);padding:12px 14px;border-radius:8px}
+    .success{border-left-color:var(--ok)}.error{border-left-color:var(--err)}
+    .small{font-size:12px;color:var(--muted)}
+    .footer{color:var(--muted);font-size:12px;text-align:center;padding-bottom:8px}
+    .inline-other{display:flex;gap:10px;align-items:center}
+    .inline-other input[type="text"]{flex:1 1 auto;min-width:180px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img class="logo" alt="Earthbound Travel Co."
+        src="https://raw.githubusercontent.com/earthboundtravel/website/refs/heads/main/earthbound-logo-condensed-transparent.png" />
+      <div class="title">
+        <h1>Earthbound Travel Co. — Bridal Show Lead Capture</h1>
+        <p>Tell us about your dream honeymoon or destination wedding. We’ll do the planning — you do the celebrating.</p>
+      </div>
+    </header>
+
+    <form id="leadForm" method="POST"
+      action="https://script.google.com/macros/s/AKfycbydlOP2K8hBcumNeTkzH8KOAixqQXd4rRespCMaAK_3FZG7G11d50j_Tw7ilpqWZXHCqQ/exec"
+      novalidate>
+
+      <input type="hidden" name="utm_source" value="Toronto Bridal Show 2025" />
+      <input type="hidden" name="brand" value="Earthbound Travel Co." />
+
+      <div class="grid">
+        <div class="col-6">
+          <label for="primaryName" class="req">Primary contact name</label>
+          <input id="primaryName" name="primary_name" required placeholder="e.g., Alex Carter" />
+        </div>
+        <div class="col-6">
+          <label for="partnerName">Partner name</label>
+          <input id="partnerName" name="partner_name" placeholder="e.g., Jamie Lee" />
+        </div>
+
+        <div class="col-6">
+          <label for="email" class="req">Email</label>
+          <input id="email" name="email" type="email" required
+                 inputmode="email" autocomplete="email"
+                 pattern="^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+                 placeholder="you@example.com" />
+        </div>
+        <div class="col-6">
+          <label for="phone" class="req">Mobile</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                 required placeholder="+1 (___) ___-____" />
+        </div>
+
+        <div class="col-6">
+          <label for="contactPref">Preferred contact</label>
+          <select id="contactPref" name="preferred_contact">
+            <option>Email</option>
+            <option>SMS</option>
+            <option>Phone call</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="departAirport">Departure airport</label>
+          <input id="departAirport" name="departure_airport" value="YYZ" />
+        </div>
+
+        <div class="col-6">
+          <label for="weddingDate">Wedding date</label>
+          <input id="weddingDate" name="wedding_date" type="date" />
+          <div class="small">Saved as <strong>MM/DD/YYYY</strong>.</div>
+        </div>
+        <div class="col-6">
+          <label for="venueCity">Wedding city / venue</label>
+          <input id="venueCity" name="wedding_city_venue" placeholder="City or Venue name" />
+        </div>
+
+        <div class="col-6">
+          <label for="earliestDepart">Earliest depart</label>
+          <input id="earliestDepart" name="earliest_depart" type="date" />
+          <div class="small">Saved as <strong>MM/DD/YYYY</strong>.</div>
+        </div>
+        <div class="col-6">
+          <label for="latestReturn">Latest return</label>
+          <input id="latestReturn" name="latest_return" type="date" />
+          <div class="small">Saved as <strong>MM/DD/YYYY</strong>.</div>
+        </div>
+
+        <div class="col-12">
+          <label for="destinations" class="req">Dream destinations</label>
+          <textarea id="destinations" name="destinations_text"
+            placeholder="e.g., Santorini, Maldives, Riviera Maya, Italy road trip, overwater bungalows…"></textarea>
+        </div>
+
+        <div class="col-12">
+          <fieldset>
+            <legend>Travel style</legend>
+            <div class="checks">
+              <label class="check-item"><input type="checkbox" name="style" value="Luxury"><span>Luxury</span></label>
+              <label class="check-item"><input type="checkbox" name="style" value="All-Inclusive"><span>All-Inclusive</span></label>
+              <label class="check-item"><input type="checkbox" name="style" value="Adults-Only"><span>Adults-Only</span></label>
+              <label class="check-item"><input type="checkbox" name="style" value="Boutique"><span>Boutique</span></label>
+              <label class="check-item"><input type="checkbox" name="style" value="Adventure"><span>Adventure</span></label>
+              <label class="check-item"><input type="checkbox" name="style" value="Wellness/Spa"><span>Wellness/Spa</span></label>
+              <label class="check-item"><input type="checkbox" name="style" value="City Break"><span>City Break</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Loyalty Programs -->
+        <div class="col-12">
+          <fieldset>
+            <legend>Loyalty Programs</legend>
+
+            <div class="section-title">Airlines</div>
+            <div class="checks columns">
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="Aeroplan (Air Canada)"><span>Aeroplan (Air Canada)</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="WestJet Rewards"><span>WestJet Rewards</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="SkyMiles (Delta)"><span>SkyMiles (Delta)</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="MileagePlus (United)"><span>MileagePlus (United)</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="AAdvantage (American)"><span>AAdvantage (American)</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="Mileage Plan (Alaska)"><span>Mileage Plan (Alaska)</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="TrueBlue (JetBlue)"><span>TrueBlue (JetBlue)</span></label>
+              <label class="check-item"><input type="checkbox" name="airline_loyalty" value="Rapid Rewards (Southwest)"><span>Rapid Rewards (Southwest)</span></label>
+              <div class="inline-other">
+                <label class="check-item" style="margin:0;">
+                  <input type="checkbox" id="airlineOtherCheck" value="Other Airline">
+                  <span>Other</span>
+                </label>
+                <input type="text" id="otherAirline" name="other_airline_loyalty" placeholder="e.g., British Airways Executive Club" />
+              </div>
+            </div>
+
+            <div class="section-title">Hotels</div>
+            <div class="checks columns">
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Marriott Bonvoy"><span>Marriott Bonvoy</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Hilton Honors"><span>Hilton Honors</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="World of Hyatt"><span>World of Hyatt</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="IHG One Rewards"><span>IHG One Rewards</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Accor Live Limitless (ALL)"><span>Accor Live Limitless (ALL)</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Wyndham Rewards"><span>Wyndham Rewards</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Choice Privileges"><span>Choice Privileges</span></label>
+              <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Best Western Rewards"><span>Best Western Rewards</span></label>
+              <div class="inline-other">
+                <label class="check-item" style="margin:0;">
+                  <input type="checkbox" id="hotelOtherCheck" value="Other Hotel">
+                  <span>Other</span>
+                </label>
+                <input type="text" id="otherHotel" name="other_hotel_loyalty" placeholder="e.g., GHA Discovery, Omni Select Guest" />
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="col-12">
+          <label for="notes">Anything we should know?</label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Allergies, must-haves, resort preferences, airline status, etc."></textarea>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <label class="check-item">
+              <input type="checkbox" id="newsletter" name="newsletter_opt_in" />
+              <span>Yes—send me honeymoon inspiration and deals.</span>
+            </label>
+          </div>
+          <div class="row">
+            <label class="check-item">
+              <input type="checkbox" id="consent" name="consent" required />
+              <span class="req">I agree to be contacted about my trip plans (CASL compliant).</span>
+            </label>
+          </div>
+          <div class="small">We’ll never sell your data. Unsubscribe anytime.</div>
+        </div>
+
+        <div class="col-12 actions">
+          <button class="btn btn-primary" type="submit">Submit</button>
+          <button id="clearBtn" class="btn btn-outline" type="reset">Clear</button>
+        </div>
+      </div>
+
+      <div id="msg" class="note-card" style="display:none"></div>
+    </form>
+
+    <div class="footer">
+      © <span id="year"></span> Earthbound Travel Co. • <a href="mailto:admin@earthbound.travel">admin@earthbound.travel</a>
+    </div>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const form = document.getElementById("leadForm");
+    const msg  = document.getElementById("msg");
+    const clearBtn = document.getElementById("clearBtn");
+    const BUCKET = "eb_lead_submissions_v4";
+
+    // Email validation message
+    const emailEl = document.getElementById("email");
+    emailEl.addEventListener("invalid", () => {
+      if (emailEl.validity.typeMismatch || emailEl.validity.patternMismatch) {
+        emailEl.setCustomValidity("Please enter a valid email like name@example.com");
+      } else {
+        emailEl.setCustomValidity("");
+      }
+    });
+    emailEl.addEventListener("input", () => emailEl.setCustomValidity(""));
+
+    // Smooth scroll helper
+    function goTop(){ window.scrollTo({ top: 0, behavior: "smooth" }); }
+
+    // Inline toast
+    function toast(text, type){
+      msg.textContent = text;
+      msg.className = "note-card " + (type==="success" ? "success" : type==="error" ? "error" : "");
+      msg.style.display = "block";
+      clearTimeout(msg._t);
+      msg._t = setTimeout(()=> msg.style.display="none", 4000);
+    }
+
+    // Normalize checkbox groups into single string values
+    function normalizeCheckboxGroup(fd, key){
+      const vals = fd.getAll(key);
+      fd.delete(key);
+      if(vals.length) fd.set(key, vals.join("; "));
+    }
+
+    // Format date inputs to MM/DD/YYYY before send
+    function toMDYString(isoValue){
+      if(!isoValue) return "";
+      const d = new Date(isoValue);
+      if (isNaN(d)) return isoValue; // fallback
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+      const dd = String(d.getDate()).padStart(2,"0");
+      const yyyy = d.getFullYear();
+      return `${mm}/${dd}/${yyyy}`;
+    }
+
+    function addOrOverrideDate(fd, fieldId){
+      const el = document.getElementById(fieldId);
+      if(!el) return;
+      const formatted = toMDYString(el.value);
+      // Replace any existing value with the formatted string
+      fd.delete(el.name);
+      fd.set(el.name, formatted);
+    }
+
+    // Handle "Other" checkboxes (optional: mark text when checked)
+    const airlineOtherCheck = document.getElementById("airlineOtherCheck");
+    const otherAirline = document.getElementById("otherAirline");
+    const hotelOtherCheck = document.getElementById("hotelOtherCheck");
+    const otherHotel = document.getElementById("otherHotel");
+
+    airlineOtherCheck.addEventListener("change", () => {
+      if(airlineOtherCheck.checked && otherAirline.value.trim()){
+        // Include a marker in the group for visibility in Sheets
+        otherAirline.dataset.include = "1";
+      } else {
+        otherAirline.dataset.include = "";
+      }
+    });
+    otherAirline.addEventListener("input", () => {
+      if(airlineOtherCheck.checked && otherAirline.value.trim()){
+        otherAirline.dataset.include = "1";
+      } else {
+        otherAirline.dataset.include = "";
+      }
+    });
+
+    hotelOtherCheck.addEventListener("change", () => {
+      if(hotelOtherCheck.checked && otherHotel.value.trim()){
+        otherHotel.dataset.include = "1";
+      } else {
+        otherHotel.dataset.include = "";
+      }
+    });
+    otherHotel.addEventListener("input", () => {
+      if(hotelOtherCheck.checked && otherHotel.value.trim()){
+        otherHotel.dataset.include = "1";
+      } else {
+        otherHotel.dataset.include = "";
+      }
+    });
+
+    // Submit handler
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if(!document.getElementById("consent").checked){
+        toast("Please agree to be contacted (CASL).", "error");
+        goTop();
+        return;
+      }
+      if(!document.getElementById("primaryName").value || !emailEl.value || !document.getElementById("phone").value){
+        toast("Please fill the required fields.", "error");
+        goTop();
+        return;
+      }
+
+      // Build FormData (no custom headers => avoids CORS preflight)
+      const fd = new FormData(form);
+      normalizeCheckboxGroup(fd, "style");
+      normalizeCheckboxGroup(fd, "airline_loyalty");
+      normalizeCheckboxGroup(fd, "hotel_loyalty");
+
+      // Include "Other" values in the loyalty groups for clarity
+      if (otherAirline.dataset.include === "1") {
+        const current = fd.get("airline_loyalty") || "";
+        fd.set("airline_loyalty", current ? `${current}; Other: ${otherAirline.value}` : `Other: ${otherAirline.value}`);
+      }
+      if (otherHotel.dataset.include === "1") {
+        const currentH = fd.get("hotel_loyalty") || "";
+        fd.set("hotel_loyalty", currentH ? `${currentH}; Other: ${otherHotel.value}` : `Other: ${otherHotel.value}`);
+      }
+
+      // Force dates to MM/DD/YYYY strings
+      addOrOverrideDate(fd, "weddingDate");
+      addOrOverrideDate(fd, "earliestDepart");
+      addOrOverrideDate(fd, "latestReturn");
+
+      // Newsletter + timestamp
+      fd.set("newsletter_opt_in", document.getElementById("newsletter").checked ? "true" : "false");
+      fd.set("_timestamp", new Date().toISOString());
+
+      // Local backup (in case you’re offline)
+      try{
+        const obj = Object.fromEntries(fd.entries());
+        const list = JSON.parse(localStorage.getItem(BUCKET) || "[]");
+        list.push(obj);
+        localStorage.setItem(BUCKET, JSON.stringify(list));
+      }catch(e){}
+
+      try{
+        const resp = await fetch(form.action, { method:"POST", body: fd });
+        if(resp.ok){
+          toast("Thanks! Your details are submitted.", "success");
+          form.reset();
+          goTop(); // scroll after clearing
+        }else{
+          toast("Submission failed (saved locally).", "error");
+          goTop();
+        }
+      }catch(err){
+        toast("Offline? Saved locally.", "error");
+        goTop();
+      }
+    });
+
+    // Reset (Clear) handler → scroll to top after clearing
+    clearBtn.addEventListener("click", () => {
+      // Let the default reset happen, then scroll
+      setTimeout(goTop, 0);
+    });
+  </script>
+</body>
+</html>
