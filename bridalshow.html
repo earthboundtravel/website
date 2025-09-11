@@ -4,398 +4,241 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sheroy Mistry - Advisor at Fora Travel</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
+    /* =========================
+       THEME TOKENS
+    ========================== */
     :root{
-      --ink:#0b3553; --sea:#1f7a8c; --sun:#f39b6d; --sand:#fbf2e4; --foam:#ffffff;
+      --ink:#0b3553;
+      --sea:#1f7a8c;
+      --sun:#f39b6d;
+      --sand:#fbf2e4;
+      --foam:#ffffff;
     }
-    html,body{margin:0;background:var(--sand);color:var(--ink);
-      font-family:"Plus Jakarta Sans",system-ui,Segoe UI,Roboto,Arial,sans-serif;}
+
+    /* =========================
+       BASE
+    ========================== */
+    html, body{
+      margin:0;
+      background:var(--sand);
+      color:var(--ink);
+      font-family:"Plus Jakarta Sans",system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    html{scroll-behavior:smooth;}
     img{max-width:100%;height:auto;display:block}
     a{color:inherit;text-decoration:none}
     .container{max-width:1100px;margin:0 auto;padding:clamp(16px,3vw,28px)}
-    .btn{padding:12px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;
-      font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.14);white-space:nowrap;line-height:1;text-align:center;justify-content:center}
+    .grid{display:grid;gap:clamp(14px,2.5vw,22px)}
+
+    .btn{
+      padding:12px 16px;border-radius:999px;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.14);
+      white-space:nowrap;line-height:1;text-align:center
+    }
     .btn.primary{background:var(--sun);color:#402b1e}
     .btn.outline{border:2px solid rgba(255,255,255,.7);color:var(--foam);background:transparent}
-    .grid{display:grid;gap:clamp(14px,2.5vw,22px)}
-    h2.section-title{font-size:clamp(20px,3.6vw,26px);margin:8px 0}
-
-    /* Hero */
-    .hero{
-        position:relative; overflow:hidden; border-radius:24px;
-        background:
-          linear-gradient(135deg, rgba(31,122,140,.55), rgba(11,53,83,.55)),
-          url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
-        background-size:cover; background-position:center; color:var(--foam);
-        padding:clamp(48px,6vw,80px) clamp(16px,3vw,28px);
-        box-shadow:0 10px 30px rgba(0,0,0,.12);
-      }
-    .hero-inner{max-width:860px;margin:0 auto;text-align:center}
-    .logos{display:flex;justify-content:center;align-items:center;gap:clamp(12px,2.2vw,24px);margin-bottom:clamp(12px,1.8vw,20px)}
-    
-
-/* Base rule stays as-is for all logos */
-.logos img{
-  height: clamp(54px, 8vw, 84px);
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
-}
-
-.logos img.logo-eb {
-  height: clamp(90px, 12vw, 140px); /* bigger at all sizes */
-}
-
-
-
-    h1{font-size:clamp(26px,5.2vw,44px);line-height:1.1;margin:8px 0 12px}
-    .tag{font-size:clamp(14px,3.2vw,18px);opacity:.95}
-    .cheeky{font-weight:800;margin:14px auto 24px;font-size:clamp(16px,3.4vw,22px)}
     .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:18px}
 
-    /* Intro */
-    .intro{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:16px;
-      padding:18px;background:var(--foam);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.07)}
+    h2.section-title{font-size:clamp(20px,3.6vw,26px);margin:8px 0}
+
+    /* =========================
+       HERO
+    ========================== */
+    .hero{
+      position:relative;overflow:hidden;border-radius:24px;
+      background:
+        linear-gradient(135deg, rgba(31,122,140,.55), rgba(11,53,83,.55)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;background-position:center;color:var(--foam);
+      padding:clamp(48px,6vw,80px) clamp(16px,3vw,28px);
+      box-shadow:0 10px 30px rgba(0,0,0,.12);
+      padding-bottom:32px; /* keep from original */
+    }
+    .hero-inner{max-width:860px;margin:0 auto;text-align:center}
+    .logos{display:flex;justify-content:center;align-items:center;gap:clamp(12px,2.2vw,24px);margin-bottom:clamp(12px,1.8vw,20px)}
+    .logos img{
+      height:clamp(54px,8vw,84px);
+      width:auto;object-fit:contain;
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
+    }
+    .logos img.logo-eb{height:clamp(90px,12vw,140px)} /* larger EB at all sizes */
+
+    h1{font-size:clamp(26px,5.2vw,44px);line-height:1.1;margin:8px 0 12px}
+    .tag,
+    .cheeky{font-size:clamp(14px,3.2vw,18px)}
+    .cheeky{font-weight:800;margin:14px auto 24px}
+
+    /* =========================
+       INTRO CARD (in hero)
+    ========================== */
+    .intro{
+      display:grid;grid-template-columns:96px 1fr;align-items:center;gap:16px;
+      padding:18px;background:var(--foam);border-radius:16px;
+      box-shadow:0 6px 18px rgba(0,0,0,.07);
+      margin-top:0; /* keep from original */
+    }
     .intro img{border-radius:999px}
     .intro .name{margin:0 0 6px;font-size:clamp(18px,3.2vw,22px)}
     .intro .advisor-sub{font-weight:600;opacity:.85}
     .intro .pitch{font-size:clamp(14px,2.8vw,16px);color:#324558;margin:8px 0 12px}
-    .socials{display:grid;grid-template-columns:repeat(4,auto);gap:10px}
-    .socials a{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:999px;background:#fff;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);font-weight:600;font-size:14px;justify-content:center}
-    .socials svg{width:18px;height:18px}
 
-    /* Cards */
+    /* Ensure proper colors when intro sits inside .hero */
+    .hero .intro{background:rgba(255,255,255,.92);color:var(--ink)}
+    .hero .intro h1,
+    .hero .intro h2,
+    .hero .intro h3,
+    .hero .intro p,
+    .hero .intro .pitch,
+    .hero .intro .name,
+    .hero .intro .advisor-sub{color:var(--ink)}
+
+    /* Socials */
+    .socials{display:grid;grid-template-columns:repeat(4,auto);gap:10px}
+    .socials a{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 12px;border-radius:999px;background:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      font-weight:600;font-size:14px;
+      transition:background .3s,color .3s
+    }
+    .socials svg{width:18px;height:18px}
+    /* Hover/click behavior that resets */
+    .hero .intro .socials a{background:#fff;color:var(--ink)}
+    .hero .intro .socials a:hover{background:var(--sun);color:#402b1e}
+    .hero .intro .socials a:active{background:var(--sea);color:#fff}
+    .hero .intro .socials a:focus{background:#fff;color:var(--ink);outline:none}
+
+    /* =========================
+       CARDS
+    ========================== */
     .cards{grid-template-columns:repeat(3,1fr);margin:24px 0}
-    .card{background:var(--foam);border-radius:18px;overflow:hidden;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);display:flex;flex-direction:column;height:100%}
-    .card > img{width:100%;height:160px;object-fit:cover}
+    .card{background:var(--foam);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08);display:flex;flex-direction:column;height:100%}
+    .card>img{width:100%;height:160px;object-fit:cover}
     .card .pad{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
     .card h3{margin:0;font-size:clamp(18px,2.8vw,20px)}
     .card p{margin:0;color:#3c4a57;font-size:clamp(14px,2.6vw,16px)}
     .card .spacer{flex:1}
     .card .pad .btn{align-self:flex-start}
 
-    /* Reviews */
+    /* =========================
+       REVIEWS
+    ========================== */
     .reviews{grid-template-columns:repeat(2,1fr)}
-    .quote{background:var(--foam);border-left:6px solid var(--sea);padding:16px;border-radius:12px;
-      box-shadow:0 4px 14px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px}
+    .quote{background:var(--foam);border-left:6px solid var(--sea);padding:16px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px}
     .quote .meta{font-size:13px;opacity:.8}
     .quote.center{text-align:center;align-items:center}
     .quote.center .btn{align-self:center}
 
-    /* Final CTA */
-    .final{margin:28px 0 8px;text-align:center;padding:26px;border-radius:20px;
-           background:linear-gradient(120deg, #fff, #f8f3ec);box-shadow:0 10px 30px rgba(0,0,0,.08)}
-    footer{margin:30px 0 22px;opacity:.8;text-align:center;font-size:14px}
+    /* details/summary (used for Services + Reviews) */
+    .reviews-section summary{
+      cursor:pointer;font-weight:700;padding:14px 18px;background:var(--sea);color:#fff;
+      border-radius:8px;margin-bottom:12px;list-style:none;box-shadow:0 4px 12px rgba(0,0,0,.1)
+    }
+    .reviews-section[open] summary{background:var(--sun);color:#402b1e}
+    .reviews-section summary::-webkit-details-marker{display:none}
 
-    /* Responsive */
+    /* =========================
+       FINAL CTA + FOOTER
+    ========================== */
+    .final{
+      margin:28px 0 8px;text-align:center;padding:26px;border-radius:20px;
+      background:linear-gradient(120deg,#fff,#f8f3ec);box-shadow:0 10px 30px rgba(0,0,0,.08)
+    }
+
+    .site-footer{
+      margin-top:40px;padding:20px 0;border-top:1px solid rgba(0,0,0,.05);font-size:14px;color:var(--ink)
+    }
+    .site-footer .footer-inner{max-width:900px;margin:0 auto;padding:0 16px;text-align:center;line-height:1.6}
+    .site-footer a{color:var(--sea);text-decoration:none;border-bottom:1px dotted rgba(31,122,140,.5);transition:color .3s,border-color .3s}
+    .site-footer a:hover{color:var(--sun);border-color:var(--sun)}
+    .site-footer .disclaimer{margin-bottom:12px}
+    .site-footer .tico{margin:8px 0;font-weight:600}
+    .site-footer .shop-link{margin-top:12px;font-style:italic}
+
+    /* =========================
+       FLOATING BUTTONS
+    ========================== */
+    .fab-container{
+      position:fixed;bottom:24px;right:24px;z-index:999;
+      display:flex;flex-direction:column;align-items:flex-end;gap:12px
+    }
+    .fab{
+      width:56px;height:56px;border-radius:50%;background:var(--sea);
+      display:flex;align-items:center;justify-content:center;cursor:pointer;
+      box-shadow:0 6px 16px rgba(0,0,0,.2);transition:background .3s;overflow:hidden
+    }
+    .fab:hover{background:var(--sun)}
+    .fab img{width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none}
+    .fab-menu{display:none;flex-direction:column;align-items:flex-end;margin-bottom:10px}
+    .fab-menu a{
+      background:var(--sea);color:#fff;padding:10px 14px;border-radius:8px;margin:6px 0;
+      font-weight:600;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.15);
+      transition:transform .2s ease, opacity .2s ease
+    }
+    .fab-menu.show{display:flex}
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
     @media (max-width:900px){
       .cards{grid-template-columns:1fr 1fr}
       .reviews{grid-template-columns:1fr}
-    
     }
 
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .hero {
-        margin-left: 12px;
-        margin-right: 12px;
-      }
+    @media (min-width:641px) and (max-width:1024px){
+      .hero{margin-left:12px;margin-right:12px}
     }
 
-     @media (max-width:640px){
-      .logos{flex-direction:column}
+    @media (max-width:640px){
+      /* Logos stay side-by-side; larger EB on mobile */
+      .logos{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px}
+      .logos img.logo-eb{height:120px !important}
+
+      /* Intro stacks centered */
       .intro{grid-template-columns:1fr;justify-items:center;text-align:center}
       .intro img{width:96px;height:96px}
       .intro .advisor-sub{display:block;margin-top:4px}
+
+      /* Pitch needs more breathing room on mobile */
+      .hero .intro .pitch{line-height:1.6;margin:10px 0 18px}
+
+      /* Socials 2x2 */
       .socials{grid-template-columns:repeat(2,1fr)}
+
+      /* Stack CTAs */
       .cta-row{flex-direction:column;align-items:center}
       .cta-row .btn{width:100%;max-width:260px}
+
+      /* Cards single column */
       .cards{grid-template-columns:1fr}
-      .hero {
-        border-radius: 0;
+
+      /* Full-bleed hero */
+      .hero{border-radius:0}
+
+ 
+      .title-wrap {
+        display: block !important;       /* force onto its own line */
+        margin-top: 4px;                 /* breathing room */
+        white-space: normal !important;  /* allow wrapping */
+        font-size: 0.9em;                 /* slightly smaller text */
       }
+
+
      }
-
-@media (max-width: 640px) {
-
-  /* Logos side-by-side */
-  .logos {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .logos img.logo-eb {
-    height: 120px !important;  /* larger EB logo */
-  }
-
-  /* Intro layout tweaks */
-  .intro {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-  }
-
-  .intro img {
-    width: 96px;
-    height: 96px;
-  }
-
-  /* Force advisor subtitle onto its own line */
-  .intro .advisor-sub {
-    display: block;
-    margin-top: 4px;
-  }
-
-  /* Optional helper if you want manual line breaks elsewhere */
-  .wrap-mobile {
-    display: block;
-    margin-top: 4px;
-  }
-
-  /* Social grid becomes 2x2 */
-  .socials {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Stack CTA buttons vertically */
-  .cta-row {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cta-row .btn {
-    width: 100%;
-    max-width: 260px;
-  }
-
-  /* Cards stack */
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
-  /* Full bleed hero on mobile */
-  .hero {
-    border-radius: 0;
-  }
-
-  /* Let pitch text flow naturally */
-  .hero .intro .pitch {
-    max-width: none;  /* remove 20ch restriction */
-    margin: 0 auto;
-    line-height: 1.4;
-  }
-}
-
-
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-        .fab-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 12px; /* space between buttons */
-    }
-
-    .fab {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--sea);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-      transition: background 0.3s ease;
-      overflow: hidden;
-    }
-
-    .fab:hover {
-      background: var(--sun);
-    }
-
-    .fab img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .fab-menu {
-      display: none;
-      flex-direction: column;
-      align-items: flex-end;
-      margin-bottom: 10px;
-    }
-
-    .fab-menu a {
-      background: var(--sea);
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin: 6px 0;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .fab-menu.show {
-      display: flex;
-    }
-
-    /* Make the Earthbound logo slightly bigger than the default */
-  .logo-eb{
-      height: clamp(100px, 9vw, 130px);
-      width: auto;
-    }
-
-/* --- Fix intro colors when intro is moved inside .hero --- */
-.hero .intro{
-  background: rgba(255,255,255,0.92); /* keep the frosted card look */
-  color: var(--ink);                   /* reset text color to dark */
-}
-
-/* Be explicit for common text elements */
-.hero .intro h1,
-.hero .intro h2,
-.hero .intro h3,
-.hero .intro p,
-.hero .intro .pitch,
-.hero .intro .name,
-.hero .intro .advisor-sub {
-  color: var(--ink);
-}
-
-/* Social buttons inside intro */
-.hero .intro .socials a{
-  background:#fff;
-  color: var(--ink);
-}
-
-/* Social icons (if using inline SVG) */
-.hero .intro .socials svg{
-  color: var(--ink); fill: currentColor;
-}
-
-/* Keep hero CTAs white text; only intro buttons switch to dark if needed */
-.hero .intro .btn{
-  color: var(--ink);
-  box-shadow: 0 6px 16px rgba(0,0,0,.14);
-}
-
-.hero { padding-bottom: 32px; }
-.intro { margin-top: 0; }
-
-
-.reviews-section summary {
-  cursor: pointer;
-  font-weight: 700;
-  padding: 14px 18px;
-  background: var(--sea);
-  color: #fff;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  list-style: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
-}
-
-.reviews-section[open] summary {
-  background: var(--sun);
-  color: #402b1e;
-}
-
-.reviews-section summary::-webkit-details-marker {
-  display: none; /* hides default arrow */
-}
-
-/* Default state */
-.hero .intro .socials a {
-  background: #fff;
-  color: var(--ink);
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-/* Hover only (when hovering) */
-.hero .intro .socials a:hover {
-  background: var(--sun);   /* sunset orange */
-  color: #402b1e;
-}
-
-/* Active (during the click press) */
-.hero .intro .socials a:active {
-  background: var(--sea);   /* teal while pressed */
-  color: #fff;
-}
-
-/* Reset focus so it doesn’t stay highlighted after click */
-.hero .intro .socials a:focus {
-  background: #fff;
-  color: var(--ink);
-  outline: none; /* optional: removes the browser outline */
-}
-
-.site-footer {
-  margin-top: 40px;
-  padding: 20px 0;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  font-size: 14px;
-  color: var(--ink);
-}
-
-.site-footer .footer-inner {
-  max-width: 900px;     /* match your page content width */
-  margin: 0 auto;       /* center horizontally */
-  padding: 0 16px;      /* some side padding for small screens */
-  text-align: center;
-  line-height: 1.6;
-}
-
-.site-footer a {
-  color: var(--sea);
-  text-decoration: none;
-  border-bottom: 1px dotted rgba(31,122,140,0.5);
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-.site-footer a:hover {
-  color: var(--sun);
-  border-color: var(--sun);
-}
-
-.site-footer .disclaimer {
-  margin-bottom: 12px;
-}
-
-.site-footer .tico {
-  margin: 8px 0;
-  font-weight: 600;
-}
-
-.site-footer .shop-link {
-  margin-top: 12px;
-  font-style: italic;
-}
-
-
   </style>
 </head>
+
 <body><br>
-  <!-- HERO -->
+  <!-- =========================
+       HERO
+  ========================== -->
   <header class="container hero" id="top">
     <div class="hero-inner">
       <div class="logos">
@@ -403,36 +246,24 @@
         +
         <a href="https://earthbound.travel?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=qr&utm_term=websitelogo" target="_blank"><img class="logo-eb" src="https://framerusercontent.com/images/KQEx7LXato5PK8Xjk9qwytoP0E.png" alt="Earthbound Travel Co. logo"></a>
       </div>
-      <h1>
-          Have you said<span class="wrap-mobile">"Yes" to the dress?</span>
-        </h1>
-        <p class="cheeky">
-          Great! Now let’s turn the<span class="wrap-mobile"> “I do” into a “Where to?”</span>
-        </p>
-      
-      <!--
-      <a class="btn" style="background:var(--ink)" href="#services" rel="noopener">My Services</a>&nbsp;
-      <a class="btn" style="background:var(--ink)" href="#reviews" rel="noopener">My Reviews</a>
-
-      -->
-
+      <h1>Have you said <span class="wrap-mobile">"Yes" to the dress?</span></h1>
+      <p class="cheeky">Great! Now let’s turn that <span class="wrap-mobile">“I do!” into a “Where to?”</span></p>
     </div>
 
     <!-- INTRO -->
     <section class="intro" id="contact">
       <img src="https://res.cloudinary.com/foratravelweb/image/upload/c_fill%2Cg_auto%2Ch_640%2Cw_640/f_webp/q_90/edf3510e-7c98-423c-ae68-6b7fd3bab1f9?_a=DATAg1XyZAA0" alt="Sheroy Mistry profile photo" />
       <div>
-       <span class="advisor-sub">
+        <span class="advisor-sub">
           <b class="name">
             Hi! I'm <span style="color:maroon">Sheroy Mistry</span>,
             <span class="title-wrap">your personal Travel Advisor.</span>
           </b>
         </span>
-        
-        <p class="pitch">I plan a luxury, bespoke, stress-free trip so you can celebrate more and worry less!</p>
-        <p class="pitch">Let's get in touch...</p>
+        <p class="pitch">I plan luxury, bespoke, stress-free trips so you can celebrate more and worry less! Let's get in touch...</p>
+
         <div class="socials">
-          <a target="_blank" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">Fora Profile</a>
+          <a target="_blank" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">FORA Profile</a>
           <a href="mailto:sheroy.mistry@fora.travel">Email</a>
           <a target="_blank" href="https://api.whatsapp.com/send?phone=16472084452">WhatsApp Chat</a>
           <a target="_blank" href="https://calendly.com/earthbound-travel">Book a Phone Call</a>
@@ -440,208 +271,200 @@
           <a target="_blank" href="https://www.tiktok.com/@earthbound.travel.co/">TikTok</a>
           <a target="_blank" href="https://www.linkedin.com/in/sheroymistry/">LinkedIn</a>
           <a target="_blank" href="https://www.facebook.com/EarthboundTravelCo/">Facebook</a>
-          
         </div>
       </div>
     </section>
-
   </header>
 
+  <!-- =========================
+       MAIN
+  ========================== -->
   <main class="container">
-    
-    
-    <!-- CARDS -->
-  
-   <h2 class="section-title" id="services">My Services</h2>
+    <h2 class="section-title" id="services">My Services</h2>
 
     <details class="reviews-section">
-    <summary>Click to see my Services</summary>
-    <section id="ideas" class="grid cards">
+      <summary>Click to see my Services</summary>
 
-      <!-- Honeymoon -->
-      <article class="card">
-        <img src="https://plus.unsplash.com/premium_photo-1700353612860-bd8ab8d71f05?q=80&w=3540&auto=format&fit=crop" alt="Couple">
-        <div class="pad">
-          <h3>Honeymoons</h3>
-          <p>Your first chapter as newlyweds starts here!</p>
-          <div class="spacer"></div>
-          <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=honeymoons" target="_blank">Get Inspired by Fora</a>
-        </div>
-      </article>
+      <section id="ideas" class="grid cards">
+        <!-- Honeymoon -->
+        <article class="card">
+          <img src="https://plus.unsplash.com/premium_photo-1700353612860-bd8ab8d71f05?q=80&w=3540&auto=format&fit=crop" alt="Couple">
+          <div class="pad">
+            <h3>Honeymoons</h3>
+            <p>Your first chapter as newlyweds starts here!</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=honeymoons" target="_blank">Get Inspired by Fora</a>
+          </div>
+        </article>
 
-<!-- Bachelor / Bachelorette -->
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1628336707631-68131ca720c3?q=80&w=3540&auto=format&fit=crop" alt="Friends rooftop party">
-        <div class="pad">
-          <h3>Bachelor / Bachelorette</h3>
-          <p>One last fling before the ring? You bring the people, i’ll plan the party! Book a free consultation today.</p>
-          <div class="spacer"></div>
-          <a class="btn" style="background:var(--sun)" href="https://calendly.com/earthbound-travel" target="_blank">Let's Plan the PARTY!</a>
-        </div>
-      </article>
+        <!-- Bachelor / Bachelorette -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1628336707631-68131ca720c3?q=80&w=3540&auto=format&fit=crop" alt="Friends rooftop party">
+          <div class="pad">
+            <h3>Bachelor / Bachelorette</h3>
+            <p>One last fling before the ring? You bring the people, i’ll plan the party! Book a free consultation today.</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--sun)" href="https://calendly.com/earthbound-travel" target="_blank">Let's Plan the PARTY!</a>
+          </div>
+        </article>
 
-      <!-- Wedding group -->
-      <article class="card">
-        <img src="https://images.unsplash.com/photo-1612599542558-f3022089fb38?q=80&w=2342&auto=format&fit=crop" alt="wedding ceremony">
-        <div class="pad">
-          <h3>Wedding Groups</h3>
-          <p>Because Uncle Bob should only be arguing over the chicken, not the check-in.</p>
-          <div class="spacer"></div>
-          <a class="btn" style="background:var(--ink);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=group-travel" target="_blank">Explore Wedding Destinations</a>
-        </div>
-      </article>
+        <!-- Wedding group -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1612599542558-f3022089fb38?q=80&w=2342&auto=format&fit=crop" alt="wedding ceremony">
+          <div class="pad">
+            <h3>Wedding Groups</h3>
+            <p>Because Uncle Bob should only be arguing over the chicken, not the check-in.</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--ink);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=group-travel" target="_blank">Explore Wedding Destinations</a>
+          </div>
+        </article>
 
-      <!-- CRUISES -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1599640842225-85d111c60e6b?q=80&w=2148&auto=format&fit=crop" alt="Cruise ship at sea">
-      <div class="pad">
-        <h3>Cruises</h3>
-        <p>Grandma gets her bingo, you get you mojito. Win-win!</p>
-        <div class="spacer"></div>
-        <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=cruises" target="_blank" rel="noopener">Chart My Course</a>
-      </div>
-    </article>
+        <!-- CRUISES -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1599640842225-85d111c60e6b?q=80&w=2148&auto=format&fit=crop" alt="Cruise ship at sea">
+          <div class="pad">
+            <h3>Cruises</h3>
+            <p>Grandma gets her bingo, you get you mojito. Win-win!</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=cruises" target="_blank" rel="noopener">Chart My Course</a>
+          </div>
+        </article>
 
-    <!-- ALL-INCLUSIVES -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1636378163213-ded48bf09b05?q=80&w=3032&auto=format&fit=crop" alt="Tropical resort pool with palms">
-      <div class="pad">
-        <h3>All-Inclusives</h3>
-        <p>All you can eat, all you can drink, all you can brag about when you’re back home.</p>
-        <div class="spacer"></div>
-        <a class="btn" style="background:var(--sun)" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=all-inclusive-travel" target="_blank" rel="noopener">Explore the Wristband Life</a>
-      </div>
-    </article>
+        <!-- ALL-INCLUSIVES -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1636378163213-ded48bf09b05?q=80&w=3032&auto=format&fit=crop" alt="Tropical resort pool with palms">
+          <div class="pad">
+            <h3>All-Inclusives</h3>
+            <p>All you can eat, all you can drink, all you can brag about when you’re back home.</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--sun)" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=all-inclusive-travel" target="_blank" rel="noopener">Explore the Wristband Life</a>
+          </div>
+        </article>
 
-    <!-- SOLO TRIPS -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1605274280779-a4732e176f4b?q=80&w=3000&auto=format&fit=crop" alt="Solo traveler with backpack at overlook">
-      <div class="pad">
-        <h3>Solo Trips</h3>
-        <p>Because sometimes your best travel buddy is You.</p>
-        <div class="spacer"></div>
-        <a class="btn" style="background:var(--ink);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=solo-travel" target="_blank" rel="noopener">Go Solo</a>
-      </div>
-    </article>
+        <!-- SOLO TRIPS -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1605274280779-a4732e176f4b?q=80&w=3000&auto=format&fit=crop" alt="Solo traveler with backpack at overlook">
+          <div class="pad">
+            <h3>Solo Trips</h3>
+            <p>Because sometimes your best travel buddy is You.</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--ink);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=solo-travel" target="_blank" rel="noopener">Go Solo</a>
+          </div>
+        </article>
 
-    <!-- CORPORATE TRAVEL -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1605803283706-9af568041f80?q=80&w=3538&auto=format&fit=crop" alt="Business traveler in airport terminal">
-      <div class="pad">
-        <h3>Corporate Travel</h3>
-        <p>Smart planning for smart execs — because time is money. Book a free consultation to get started!</p>
-        <div class="spacer"></div>
-        <a class="btn" style="background:var(--sea);color:#fff" href="https://calendly.com/earthbound-travel" target="_blank" rel="noopener">Upgrade My Work Trip</a>
-      </div>
-    </article>
+        <!-- CORPORATE TRAVEL -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1605803283706-9af568041f80?q=80&w=3538&auto=format&fit=crop" alt="Business traveler in airport terminal">
+          <div class="pad">
+            <h3>Corporate Travel</h3>
+            <p>Smart planning for smart execs — because time is money. Book a free consultation to get started!</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--sea);color:#fff" href="https://calendly.com/earthbound-travel" target="_blank" rel="noopener">Upgrade My Work Trip</a>
+          </div>
+        </article>
 
-    <!-- ROAD TRIP -->
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1473969631237-f466cf342b1f?q=80&w=3474&auto=format&fit=crop" alt="Car on scenic highway at sunset">
-      <div class="pad">
-        <h3>Road Trip</h3>
-        <p>Windows down, playlist up, routes perfected. We’ll map the magic—no detours into chaos.</p>
-        <div class="spacer"></div>
-        <a class="btn" style="background:var(--sun)" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=road-trip-travel" target="_blank" rel="noopener">Map My Road Trip</a>
-      </div>
-    </article>
+        <!-- ROAD TRIP -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1473969631237-f466cf342b1f?q=80&w=3474&auto=format&fit=crop" alt="Car on scenic highway at sunset">
+          <div class="pad">
+            <h3>Road Trip</h3>
+            <p>Windows down, playlist up, routes perfected. We’ll map the magic—no detours into chaos.</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--sun)" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=road-trip-travel" target="_blank" rel="noopener">Map My Road Trip</a>
+          </div>
+        </article>
 
-    <!-- ADVENTURE TRAVEL -->
-<article class="card">
-  <img src="https://images.unsplash.com/photo-1510662145379-13537db782dc?q=80&w=2717&auto=format&fit=crop" alt="Hikers on mountain ridge at sunrise">
-  <div class="pad">
-    <h3>Adventure Travel</h3>
-    <p>Life begins where your comfort zone ends...</p>
-    <div class="spacer"></div>
-    <a class="btn" style="background:var(--ink);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=adventure-travel" target="_blank" rel="noopener">Book My Adventure</a>
-  </div>
-</article>
-
-    </section>
-  </details>
-
-    <!-- REVIEWS -->
-    <h2 class="section-title" id="reviews">Client Reviews</h2>     
-    <details class="reviews-section">
-    <summary>Click to see Client Reviews</summary>
-
-    <section class="grid reviews">
-      <article class="quote"><p>“Sheroy was a total life saver. We were booked in another hotel initially however when we got to the hotel it was very dated and just not we had expected. We contacted Sheroy right away for his help to change hotels and within 20 mins we were not only booked into a new hotel Castillo ( great recommendation from Sheroy) but also received a full refund for our stay at the initial hotel even though we had passed the cancellation date. Sheroy acted swiftly, was extremely attentive to our needs and took charge of the whole situation. At the end of it, we had the most memorable vacation all thanks to our travel advisor Sheroy. Thank You Sheroy! You earned a client for life.”</p><span class="meta">— Meherzad E.<br>Booked travel to Spain in August 2025</span></article>
-      <article class="quote"><p>"We asked Sheroy to help us book a family holiday in Vancouver. We wanted a comfortable studio suite within a family-friendly hotel and a rental car for the week. Sheroy really delivered and took all the stress of planning and booking a holiday off our shoulders! He gave us several options with respect to airplane flights, accommodations, and cultural excursions, and we were so happy with the travel package he put together! We had a wonderful time, the hotel was terrific with excellent facilities (especially for kids) and the location was ideal. We are so glad we used Sheroy for our trip!"</p><span class="meta">— Victor L.<br>Booked travel to Vancouver in August 2025</span></article>
-      <article class="quote"><p>“Thank you so much for helping us with our first cruise. It was a wonderful experience and your insight was excellent. Looking forward to booking with you again. Thank you!!”</p><span class="meta">— Antonio A.<br>Booked a Caribbean cruise in August 2025</span></article>
-      <article class="quote"><p>“Sheroy was an excellent travel advisor. He worked hard to get us a decent place in our budget. He was constantly in touch with us throughout the booking process giving us several options. Even advising us with places to visit around the area. The booking process was seamless with him. He will be our travel advisor for all our future travels. Very happy with his service.”</p><span class="meta">— Kerman N.<br>Booked travel in Ontario in August 2025</span></article>
-      <article class="quote"><p>“Sheroy was so incredibly helpful, thoughtful, responsive from beginning through to after the trip. He really served as my thought partner - he took time to understand me, what I was looking for for my family, and went above and beyond to help ensure we had an amazing travel experience. Would definitely work with him again!”</p><span class="meta">— Manisha B.<br>Booked an Alaskan cruise in July 2025</span></article>
-      <div class="quote center">
-        <p>Browse more 5-star reviews on my Fora profile.</p>
-        <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">See More Reviews</a>
-      </div>
-    </section>
+        <!-- ADVENTURE TRAVEL -->
+        <article class="card">
+          <img src="https://images.unsplash.com/photo-1510662145379-13537db782dc?q=80&w=2717&auto=format&fit=crop" alt="Hikers on mountain ridge at sunrise">
+          <div class="pad">
+            <h3>Adventure Travel</h3>
+            <p>Life begins where your comfort zone ends...</p>
+            <div class="spacer"></div>
+            <a class="btn" style="background:var(--ink);color:#fff" href="https://www.foratravel.com/travel-guides-itineraries-and-trip-reports?p=1&category=adventure-travel" target="_blank" rel="noopener">Book My Adventure</a>
+          </div>
+        </article>
+      </section>
     </details>
 
-   
+    <!-- REVIEWS -->
+    <h2 class="section-title" id="reviews">Client Reviews</h2>
+    <details class="reviews-section">
+      <summary>Click to see Client Reviews</summary>
+
+      <section class="grid reviews">
+        <article class="quote"><p>“Sheroy was a total life saver. We were booked in another hotel initially however when we got to the hotel it was very dated and just not we had expected. We contacted Sheroy right away for his help to change hotels and within 20 mins we were not only booked into a new hotel Castillo ( great recommendation from Sheroy) but also received a full refund for our stay at the initial hotel even though we had passed the cancellation date. Sheroy acted swiftly, was extremely attentive to our needs and took charge of the whole situation. At the end of it, we had the most memorable vacation all thanks to our travel advisor Sheroy. Thank You Sheroy! You earned a client for life.”</p><span class="meta">— Meherzad E.<br>Booked travel to Spain in August 2025</span></article>
+        <article class="quote"><p>"We asked Sheroy to help us book a family holiday in Vancouver. We wanted a comfortable studio suite within a family-friendly hotel and a rental car for the week. Sheroy really delivered and took all the stress of planning and booking a holiday off our shoulders! He gave us several options with respect to airplane flights, accommodations, and cultural excursions, and we were so happy with the travel package he put together! We had a wonderful time, the hotel was terrific with excellent facilities (especially for kids) and the location was ideal. We are so glad we used Sheroy for our trip!"</p><span class="meta">— Victor L.<br>Booked travel to Vancouver in August 2025</span></article>
+        <article class="quote"><p>“Thank you so much for helping us with our first cruise. It was a wonderful experience and your insight was excellent. Looking forward to booking with you again. Thank you!!”</p><span class="meta">— Antonio A.<br>Booked a Caribbean cruise in August 2025</span></article>
+        <article class="quote"><p>“Sheroy was an excellent travel advisor. He worked hard to get us a decent place in our budget. He was constantly in touch with us throughout the booking process giving us several options. Even advising us with places to visit around the area. The booking process was seamless with him. He will be our travel advisor for all our future travels. Very happy with his service.”</p><span class="meta">— Kerman N.<br>Booked travel in Ontario in August 2025</span></article>
+        <article class="quote"><p>“Sheroy was so incredibly helpful, thoughtful, responsive from beginning through to after the trip. He really served as my thought partner - he took time to understand me, what I was looking for for my family, and went above and beyond to help ensure we had an amazing travel experience. Would definitely work with him again!”</p><span class="meta">— Manisha B.<br>Booked an Alaskan cruise in July 2025</span></article>
+        <div class="quote center">
+          <p>Browse more 5-star reviews on my Fora profile.</p>
+          <a class="btn" style="background:var(--sea);color:#fff" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">See More Reviews</a>
+        </div>
+      </section>
+    </details>
   </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <p class="disclaimer">
-      <a href="https://earthbound.travel?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=link&utm_term=companylink" target="_blank">
-        <strong>Earthbound Travel Co.</strong>
-      </a> is my personal brand.  
-      All travel bookings and reservations are fulfilled under the 
-      <a href="https://www.foratravel.com/" target="_blank"><strong>Fora Travel Inc.</strong></a> umbrella,  
-      a registered and accredited travel agency.
-    </p>
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="disclaimer">
+        <a href="https://earthbound.travel?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=link&utm_term=companylink" target="_blank">
+          <strong>Earthbound Travel Co.</strong>
+        </a> is my personal brand.  
+        All travel bookings and reservations are fulfilled under the 
+        <a href="https://www.foratravel.com/" target="_blank"><strong>Fora Travel Inc.</strong></a> umbrella,  of which I have been a member since May 2025.
+        
+        <br><br> FORA is a registered and accredited travel agency. 
+      
+        <a class="tico" href="https://tico.ca/search/DirectoryDetails.aspx?id=50027942" target="_blank">TICO Registration No. 50027942</a>
+      </p>
 
-    <p class="tico">
-      <a href="https://tico.ca/search/DirectoryDetails.aspx?id=50027942" target="_blank">TICO Registration No. 50027942</a>
-    </p>
+      <p class="shop-link">
+        Visit the 
+        <a href="https://earthboundtravel.shop/?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=link&utm_term=shoplink" target="_blank">
+          <strong>Earthbound Travel Shop</strong>
+        </a> for exclusive merch and books designed by me.
+      </p>
+    </div>
+  </footer>
 
-    <p class="shop-link">
-      Visit the 
-      <a href="https://earthboundtravel.shop/?utm_campaign=bridalshow&utm_medium=tradeshow&utm_source=link&utm_term=shoplink" target="_blank">
-        <strong>Earthbound Travel Shop</strong>
-      </a> for exclusive merch and books designed by me.
-    </p>
+  <!-- =========================
+       FLOATING BUTTONS
+  ========================== -->
+  <div class="fab-container">
+    <!-- Scroll to Top Button -->
+    <div class="fab" id="scrollTopBtn">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/up.png" alt="Scroll to Top">
+    </div>
+
+    <!-- Menu Button -->
+    <div class="fab" id="fabBtn">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/compass.png" alt="Compass Icon">
+    </div>
+
+    <div class="fab-menu" id="fabMenu">
+      <a href="#services">Browse Services</a>
+      <a href="#reviews">See Reviews</a>
+      <a href="#contact">Contact Me</a>
+    </div>
   </div>
-</footer>
 
+  <script>
+    const fabBtn = document.getElementById("fabBtn");
+    const fabMenu = document.getElementById("fabMenu");
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
 
+    fabBtn.addEventListener("click", () => {
+      fabMenu.classList.toggle("show");
+    });
 
-<!-- Floating Action Button -->
-
-<!-- Floating Buttons -->
-<div class="fab-container">
-  <!-- Scroll to Top Button -->
-  <div class="fab" id="scrollTopBtn">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/up.png" alt="Scroll to Top">
-  </div>
-
-  <!-- Menu Button -->
-  <div class="fab" id="fabBtn">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/compass.png" alt="Compass Icon">
-  </div>
-
-  <div class="fab-menu" id="fabMenu">
-    <a href="#services">Browse Services</a>
-    <a href="#reviews">See Reviews</a>
-    <a href="#contact">Contact Me</a>
-  </div>
-</div>
-
-<script>
-  const fabBtn = document.getElementById("fabBtn");
-  const fabMenu = document.getElementById("fabMenu");
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
-
-  fabBtn.addEventListener("click", () => {
-    fabMenu.classList.toggle("show");
-  });
-
-  scrollTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-</script>
-
-
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 </body>
 </html>
