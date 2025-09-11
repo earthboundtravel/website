@@ -131,7 +131,7 @@
   }
 
   .logos img.logo-eb {
-    height: 120px !important;  /* bump size on mobile */
+    height: 120px !important;  /* larger EB logo */
   }
 
   /* Intro layout tweaks */
@@ -146,13 +146,13 @@
     height: 96px;
   }
 
-  /* Subtitle moves to next line */
+  /* Force advisor subtitle onto its own line */
   .intro .advisor-sub {
     display: block;
     margin-top: 4px;
   }
 
-  /* Utility: force line break only if applied manually */
+  /* Optional helper if you want manual line breaks elsewhere */
   .wrap-mobile {
     display: block;
     margin-top: 4px;
@@ -174,19 +174,19 @@
     max-width: 260px;
   }
 
-  /* Cards in one column */
+  /* Cards stack */
   .cards {
     grid-template-columns: 1fr;
   }
 
-  /* Full bleed hero */
+  /* Full bleed hero on mobile */
   .hero {
     border-radius: 0;
   }
 
   /* Let pitch text flow naturally */
   .hero .intro .pitch {
-    max-width: none;   /* remove 20ch limit */
+    max-width: none;  /* remove 20ch restriction */
     margin: 0 auto;
     line-height: 1.4;
   }
@@ -429,8 +429,8 @@
           </b>
         </span>
         
-        <p class="pitch">I can plan a luxury, bespoke, stress-free trip so you can celebrate more and worry less!</p>
-        <p class="pitch">You can contact me using any of the options below...</p>
+        <p class="pitch">I plan a luxury, bespoke, stress-free trip so you can celebrate more and worry less!</p>
+        <p class="pitch">Let's get in touch...</p>
         <div class="socials">
           <a target="_blank" href="https://www.foratravel.com/advisor/sheroy-mistry" target="_blank">Fora Profile</a>
           <a href="mailto:sheroy.mistry@fora.travel">Email</a>
