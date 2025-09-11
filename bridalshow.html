@@ -222,7 +222,16 @@
       /* Full-bleed hero */
       .hero{border-radius:0}
 
- 
+     .hero h1 {
+        white-space: nowrap;     /* force it all on one line */
+        font-size: clamp(18px, 6vw, 28px); /* shrink headline responsively */
+      }
+
+      /* Ensure the span doesn’t force a break */
+      .wrap-mobile {
+        display: inline !important;
+      }
+
       .title-wrap {
         display: block !important;       /* force onto its own line */
         margin-top: 4px;                 /* breathing room */
