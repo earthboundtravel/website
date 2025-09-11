@@ -11,238 +11,350 @@
 
   <style>
     /* =========================
-       THEME TOKENS
-    ========================== */
-    :root{
-      --ink:#0b3553;
-      --sea:#1f7a8c;
-      --sun:#f39b6d;
-      --sand:#fbf2e4;
-      --foam:#ffffff;
+   THEME TOKENS
+========================= */
+:root{
+  --ink:#0b3553;
+  --sea:#1f7a8c;
+  --sun:#f39b6d;
+  --sand:#fbf2e4;
+  --foam:#ffffff;
+}
+
+/* =========================
+   BASE
+========================= */
+html, body{
+  margin:0;
+  background:var(--sand);
+  color:var(--ink);
+  font-family:"Plus Jakarta Sans",system-ui,Segoe UI,Roboto,Arial,sans-serif;
+}
+html{scroll-behavior:smooth;}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:clamp(16px,3vw,28px)}
+.grid{display:grid;gap:clamp(14px,2.5vw,22px)}
+
+.btn{
+  padding:12px 16px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  font-weight:700;
+  box-shadow:0 6px 16px rgba(0,0,0,.14);
+  white-space:nowrap;
+  line-height:1;
+  text-align:center;
+}
+.btn.primary{background:var(--sun);color:#402b1e}
+.btn.outline{border:2px solid rgba(255,255,255,.7);color:var(--foam);background:transparent}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:18px}
+
+h2.section-title{font-size:clamp(20px,3.6vw,26px);margin:8px 0}
+
+/* =========================
+   HERO
+========================= */
+.hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  background:
+    linear-gradient(135deg, rgba(31,122,140,.55), rgba(11,53,83,.55)),
+    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
+  background-size:cover;
+  background-position:center;
+  color:var(--foam);
+  padding:clamp(48px,6vw,80px) clamp(16px,3vw,28px);
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+  padding-bottom:32px;
+}
+.hero-inner{max-width:860px;margin:0 auto;text-align:center}
+.logos{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(12px,2.2vw,24px);
+  margin-bottom:clamp(12px,1.8vw,20px)
+}
+.logos img{
+  height:clamp(54px,8vw,84px);
+  width:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+.logos img.logo-eb{height:clamp(90px,12vw,140px)}
+
+h1{
+  font-size:clamp(26px,5.2vw,44px);
+  line-height:1.1;
+  margin:8px 0 12px
+}
+.tag,
+.cheeky{font-size:clamp(14px,3.2vw,18px)}
+.cheeky{font-weight:800;margin:14px auto 24px}
+
+/* =========================
+   INTRO CARD (in hero)
+========================= */
+.intro{
+  display:grid;
+  grid-template-columns:96px 1fr;
+  align-items:center;
+  gap:16px;
+  padding:18px;
+  background:var(--foam);
+  border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.07);
+  margin-top:0;
+}
+.intro img{border-radius:999px}
+.intro .name{margin:0 0 6px;font-size:clamp(18px,3.2vw,22px)}
+.intro .advisor-sub{font-weight:600;opacity:.85}
+.intro .pitch{font-size:clamp(14px,2.8vw,16px);color:#324558;margin:8px 0 12px}
+
+/* Ensure proper colors when intro sits inside .hero */
+.hero .intro{background:rgba(255,255,255,.92);color:var(--ink)}
+.hero .intro h1,
+.hero .intro h2,
+.hero .intro h3,
+.hero .intro p,
+.hero .intro .pitch,
+.hero .intro .name,
+.hero .intro .advisor-sub{color:var(--ink)}
+
+/* Socials */
+.socials{display:grid;grid-template-columns:repeat(4,auto);gap:10px}
+.socials a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  font-weight:600;
+  font-size:14px;
+  transition:background .3s,color .3s
+}
+.socials svg{width:18px;height:18px}
+/* Hover/click behavior that resets */
+.hero .intro .socials a{background:#fff;color:var(--ink)}
+.hero .intro .socials a:hover{background:var(--sun);color:#402b1e}
+.hero .intro .socials a:active{background:var(--sea);color:#fff}
+.hero .intro .socials a:focus{background:#fff;color:var(--ink);outline:none}
+
+/* =========================
+   CARDS
+========================= */
+.cards{grid-template-columns:repeat(3,1fr);margin:24px 0}
+.card{
+  background:var(--foam);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  display:flex;
+  flex-direction:column;
+  height:100%
+}
+.card>img{width:100%;height:160px;object-fit:cover}
+.card .pad{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{margin:0;font-size:clamp(18px,2.8vw,20px)}
+.card p{margin:0;color:#3c4a57;font-size:clamp(14px,2.6vw,16px)}
+.card .spacer{flex:1}
+.card .pad .btn{align-self:flex-start}
+
+/* =========================
+   REVIEWS
+========================= */
+.reviews{grid-template-columns:repeat(2,1fr)}
+.quote{
+  background:var(--foam);
+  border-left:6px solid var(--sea);
+  padding:16px;
+  border-radius:12px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  display:flex;
+  flex-direction:column;
+  gap:8px
+}
+.quote .meta{font-size:13px;opacity:.8}
+.quote.center{text-align:center;align-items:center}
+.quote.center .btn{align-self:center}
+
+.reviews-section summary{
+  cursor:pointer;
+  font-weight:700;
+  padding:14px 18px;
+  background:var(--sea);
+  color:#fff;
+  border-radius:8px;
+  margin-bottom:12px;
+  list-style:none;
+  box-shadow:0 4px 12px rgba(0,0,0,.1)
+}
+.reviews-section[open] summary{background:var(--sun);color:#402b1e}
+.reviews-section summary::-webkit-details-marker{display:none}
+
+/* =========================
+   FINAL CTA + FOOTER
+========================= */
+.final{
+  margin:28px 0 8px;
+  text-align:center;
+  padding:26px;
+  border-radius:20px;
+  background:linear-gradient(120deg,#fff,#f8f3ec);
+  box-shadow:0 10px 30px rgba(0,0,0,.08)
+}
+.site-footer{
+  margin-top:40px;
+  padding:20px 0;
+  border-top:1px solid rgba(0,0,0,.05);
+  font-size:14px;
+  color:var(--ink)
+}
+.site-footer .footer-inner{
+  max-width:900px;
+  margin:0 auto;
+  padding:0 16px;
+  text-align:center;
+  line-height:1.6
+}
+.site-footer a{
+  color:var(--sea);
+  text-decoration:none;
+  border-bottom:1px dotted rgba(31,122,140,.5);
+  transition:color .3s,border-color .3s
+}
+.site-footer a:hover{color:var(--sun);border-color:var(--sun)}
+.site-footer .disclaimer{margin-bottom:12px}
+.site-footer .tico{margin:8px 0;font-weight:600}
+.site-footer .shop-link{margin-top:12px;font-style:italic}
+
+/* =========================
+   FLOATING BUTTONS
+========================= */
+.fab-container{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  z-index:999;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:12px
+}
+.fab{
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:var(--sea);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 6px 16px rgba(0,0,0,.2);
+  transition:background .3s;
+  overflow:hidden
+}
+.fab:hover{background:var(--sun)}
+.fab img{width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none}
+.fab-menu{display:none;flex-direction:column;align-items:flex-end;margin-bottom:10px}
+.fab-menu a{
+  background:var(--sea);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:8px;
+  margin:6px 0;
+  font-weight:600;
+  text-decoration:none;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+  transition:transform .2s ease, opacity .2s ease
+}
+.fab-menu.show{display:flex}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width:900px){
+  .cards{grid-template-columns:1fr 1fr}
+  .reviews{grid-template-columns:1fr}
+}
+@media (min-width:641px) and (max-width:1024px){
+  .hero{margin-left:12px;margin-right:12px}
+}
+@media (max-width:640px){
+  /* Logos side-by-side */
+  .logos{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px}
+  .logos img.logo-eb{height:120px !important}
+
+  /* Intro stacks centered */
+  .intro{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .intro img{width:96px;height:96px}
+  .intro .advisor-sub{display:block;margin-top:4px}
+
+  /* Pitch more breathing room */
+  .hero .intro .pitch{line-height:1.6;margin:10px 0 18px}
+
+  /* Socials 2x2 */
+  .socials{grid-template-columns:repeat(2,1fr)}
+
+  /* Stack CTAs */
+  .cta-row{flex-direction:column;align-items:center}
+  .cta-row .btn{width:100%;max-width:260px}
+
+  /* Cards single column */
+  .cards{grid-template-columns:1fr}
+
+  /* Full-bleed hero */
+  .hero{border-radius:0}
+
+  /* Equal padding for hero inner to keep title off edges */
+  .hero .hero-inner{
+    padding-left:16px;
+    padding-right:16px;
+    box-sizing:border-box;
+  }
+
+  /* Force h1 into one line but shrink to fit */
+  .hero h1{
+    white-space:nowrap;
+    font-size:clamp(18px,5.5vw,28px);
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    overflow:hidden;
+    text-overflow:clip;
+  }
+
+  /* Prevent forced break from wrap-mobile */
+  .wrap-mobile{display:inline !important}
+
+  /* Advisor subtitle on new line + slightly smaller */
+  .title-wrap{
+    display:block !important;
+    margin-top:4px;
+    white-space:normal !important;
+    font-size:0.9em;
+  }
+
+  .fab {
+      width: 40px;
+      height: 40px;
     }
-
-    /* =========================
-       BASE
-    ========================== */
-    html, body{
-      margin:0;
-      background:var(--sand);
-      color:var(--ink);
-      font-family:"Plus Jakarta Sans",system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    .fab img {
+      width: 100%;
+      height: 100%;
     }
-    html{scroll-behavior:smooth;}
-    img{max-width:100%;height:auto;display:block}
-    a{color:inherit;text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:clamp(16px,3vw,28px)}
-    .grid{display:grid;gap:clamp(14px,2.5vw,22px)}
-
-    .btn{
-      padding:12px 16px;border-radius:999px;
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.14);
-      white-space:nowrap;line-height:1;text-align:center
-    }
-    .btn.primary{background:var(--sun);color:#402b1e}
-    .btn.outline{border:2px solid rgba(255,255,255,.7);color:var(--foam);background:transparent}
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:18px}
-
-    h2.section-title{font-size:clamp(20px,3.6vw,26px);margin:8px 0}
-
-    /* =========================
-       HERO
-    ========================== */
-    .hero{
-      position:relative;overflow:hidden;border-radius:24px;
-      background:
-        linear-gradient(135deg, rgba(31,122,140,.55), rgba(11,53,83,.55)),
-        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');
-      background-size:cover;background-position:center;color:var(--foam);
-      padding:clamp(48px,6vw,80px) clamp(16px,3vw,28px);
-      box-shadow:0 10px 30px rgba(0,0,0,.12);
-      padding-bottom:32px; /* keep from original */
-    }
-    .hero-inner{max-width:860px;margin:0 auto;text-align:center}
-    .logos{display:flex;justify-content:center;align-items:center;gap:clamp(12px,2.2vw,24px);margin-bottom:clamp(12px,1.8vw,20px)}
-    .logos img{
-      height:clamp(54px,8vw,84px);
-      width:auto;object-fit:contain;
-      filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
-    }
-    .logos img.logo-eb{height:clamp(90px,12vw,140px)} /* larger EB at all sizes */
-
-    h1{font-size:clamp(26px,5.2vw,44px);line-height:1.1;margin:8px 0 12px}
-    .tag,
-    .cheeky{font-size:clamp(14px,3.2vw,18px)}
-    .cheeky{font-weight:800;margin:14px auto 24px}
-
-    /* =========================
-       INTRO CARD (in hero)
-    ========================== */
-    .intro{
-      display:grid;grid-template-columns:96px 1fr;align-items:center;gap:16px;
-      padding:18px;background:var(--foam);border-radius:16px;
-      box-shadow:0 6px 18px rgba(0,0,0,.07);
-      margin-top:0; /* keep from original */
-    }
-    .intro img{border-radius:999px}
-    .intro .name{margin:0 0 6px;font-size:clamp(18px,3.2vw,22px)}
-    .intro .advisor-sub{font-weight:600;opacity:.85}
-    .intro .pitch{font-size:clamp(14px,2.8vw,16px);color:#324558;margin:8px 0 12px}
-
-    /* Ensure proper colors when intro sits inside .hero */
-    .hero .intro{background:rgba(255,255,255,.92);color:var(--ink)}
-    .hero .intro h1,
-    .hero .intro h2,
-    .hero .intro h3,
-    .hero .intro p,
-    .hero .intro .pitch,
-    .hero .intro .name,
-    .hero .intro .advisor-sub{color:var(--ink)}
-
-    /* Socials */
-    .socials{display:grid;grid-template-columns:repeat(4,auto);gap:10px}
-    .socials a{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:10px 12px;border-radius:999px;background:#fff;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
-      font-weight:600;font-size:14px;
-      transition:background .3s,color .3s
-    }
-    .socials svg{width:18px;height:18px}
-    /* Hover/click behavior that resets */
-    .hero .intro .socials a{background:#fff;color:var(--ink)}
-    .hero .intro .socials a:hover{background:var(--sun);color:#402b1e}
-    .hero .intro .socials a:active{background:var(--sea);color:#fff}
-    .hero .intro .socials a:focus{background:#fff;color:var(--ink);outline:none}
-
-    /* =========================
-       CARDS
-    ========================== */
-    .cards{grid-template-columns:repeat(3,1fr);margin:24px 0}
-    .card{background:var(--foam);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.08);display:flex;flex-direction:column;height:100%}
-    .card>img{width:100%;height:160px;object-fit:cover}
-    .card .pad{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
-    .card h3{margin:0;font-size:clamp(18px,2.8vw,20px)}
-    .card p{margin:0;color:#3c4a57;font-size:clamp(14px,2.6vw,16px)}
-    .card .spacer{flex:1}
-    .card .pad .btn{align-self:flex-start}
-
-    /* =========================
-       REVIEWS
-    ========================== */
-    .reviews{grid-template-columns:repeat(2,1fr)}
-    .quote{background:var(--foam);border-left:6px solid var(--sea);padding:16px;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px}
-    .quote .meta{font-size:13px;opacity:.8}
-    .quote.center{text-align:center;align-items:center}
-    .quote.center .btn{align-self:center}
-
-    /* details/summary (used for Services + Reviews) */
-    .reviews-section summary{
-      cursor:pointer;font-weight:700;padding:14px 18px;background:var(--sea);color:#fff;
-      border-radius:8px;margin-bottom:12px;list-style:none;box-shadow:0 4px 12px rgba(0,0,0,.1)
-    }
-    .reviews-section[open] summary{background:var(--sun);color:#402b1e}
-    .reviews-section summary::-webkit-details-marker{display:none}
-
-    /* =========================
-       FINAL CTA + FOOTER
-    ========================== */
-    .final{
-      margin:28px 0 8px;text-align:center;padding:26px;border-radius:20px;
-      background:linear-gradient(120deg,#fff,#f8f3ec);box-shadow:0 10px 30px rgba(0,0,0,.08)
-    }
-
-    .site-footer{
-      margin-top:40px;padding:20px 0;border-top:1px solid rgba(0,0,0,.05);font-size:14px;color:var(--ink)
-    }
-    .site-footer .footer-inner{max-width:900px;margin:0 auto;padding:0 16px;text-align:center;line-height:1.6}
-    .site-footer a{color:var(--sea);text-decoration:none;border-bottom:1px dotted rgba(31,122,140,.5);transition:color .3s,border-color .3s}
-    .site-footer a:hover{color:var(--sun);border-color:var(--sun)}
-    .site-footer .disclaimer{margin-bottom:12px}
-    .site-footer .tico{margin:8px 0;font-weight:600}
-    .site-footer .shop-link{margin-top:12px;font-style:italic}
-
-    /* =========================
-       FLOATING BUTTONS
-    ========================== */
-    .fab-container{
-      position:fixed;bottom:24px;right:24px;z-index:999;
-      display:flex;flex-direction:column;align-items:flex-end;gap:12px
-    }
-    .fab{
-      width:56px;height:56px;border-radius:50%;background:var(--sea);
-      display:flex;align-items:center;justify-content:center;cursor:pointer;
-      box-shadow:0 6px 16px rgba(0,0,0,.2);transition:background .3s;overflow:hidden
-    }
-    .fab:hover{background:var(--sun)}
-    .fab img{width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none}
-    .fab-menu{display:none;flex-direction:column;align-items:flex-end;margin-bottom:10px}
-    .fab-menu a{
-      background:var(--sea);color:#fff;padding:10px 14px;border-radius:8px;margin:6px 0;
-      font-weight:600;text-decoration:none;box-shadow:0 4px 10px rgba(0,0,0,.15);
-      transition:transform .2s ease, opacity .2s ease
-    }
-    .fab-menu.show{display:flex}
-
-    /* =========================
-       RESPONSIVE
-    ========================== */
-    @media (max-width:900px){
-      .cards{grid-template-columns:1fr 1fr}
-      .reviews{grid-template-columns:1fr}
-    }
-
-    @media (min-width:641px) and (max-width:1024px){
-      .hero{margin-left:12px;margin-right:12px}
-    }
-
-    @media (max-width:640px){
-      /* Logos stay side-by-side; larger EB on mobile */
-      .logos{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px}
-      .logos img.logo-eb{height:120px !important}
-
-      /* Intro stacks centered */
-      .intro{grid-template-columns:1fr;justify-items:center;text-align:center}
-      .intro img{width:96px;height:96px}
-      .intro .advisor-sub{display:block;margin-top:4px}
-
-      /* Pitch needs more breathing room on mobile */
-      .hero .intro .pitch{line-height:1.6;margin:10px 0 18px}
-
-      /* Socials 2x2 */
-      .socials{grid-template-columns:repeat(2,1fr)}
-
-      /* Stack CTAs */
-      .cta-row{flex-direction:column;align-items:center}
-      .cta-row .btn{width:100%;max-width:260px}
-
-      /* Cards single column */
-      .cards{grid-template-columns:1fr}
-
-      /* Full-bleed hero */
-      .hero{border-radius:0}
-
-       .hero h1 {
-          white-space: nowrap;
-          font-size: clamp(18px, 6vw, 28px);
-          padding: 0 12px;   /* equal left/right breathing space */
-          box-sizing: border-box; /* makes padding play nicely */
-        }
-
-      /* Ensure the span doesn’t force a break */
-      .wrap-mobile {
-          display: inline !important;
-        }
-
-      .title-wrap {
-        display: block !important;       /* force onto its own line */
-        margin-top: 4px;                 /* breathing room */
-        white-space: normal !important;  /* allow wrapping */
-        font-size: 0.9em;                 /* slightly smaller text */
-      }
+  
+}
 
 
-     }
   </style>
 </head>
 
