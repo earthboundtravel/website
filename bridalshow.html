@@ -122,10 +122,10 @@
 
 @media (max-width: 640px) {
 
-  /* Keep logos side-by-side but scale Earthbound larger */
+  /* Logos side-by-side */
   .logos {
-    flex-direction: row;       /* stay inline */
-    flex-wrap: wrap;           /* wrap together if too tight */
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
   }
@@ -146,13 +146,13 @@
     height: 96px;
   }
 
-  /* Put advisor subtitle on its own line */
+  /* Subtitle moves to next line */
   .intro .advisor-sub {
     display: block;
     margin-top: 4px;
   }
 
-  /* Utility class for breaking lines nicely */
+  /* Utility: force line break only if applied manually */
   .wrap-mobile {
     display: block;
     margin-top: 4px;
@@ -163,7 +163,7 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Stack CTA buttons */
+  /* Stack CTA buttons vertically */
   .cta-row {
     flex-direction: column;
     align-items: center;
@@ -174,19 +174,19 @@
     max-width: 260px;
   }
 
-  /* Single-column cards */
+  /* Cards in one column */
   .cards {
     grid-template-columns: 1fr;
   }
 
-  /* Remove rounded edges on hero for full bleed look */
+  /* Full bleed hero */
   .hero {
     border-radius: 0;
   }
 
-  /* Keep pitch balanced for 2-line wrap */
+  /* Let pitch text flow naturally */
   .hero .intro .pitch {
-    max-width: 20ch;
+    max-width: none;   /* remove 20ch limit */
     margin: 0 auto;
     line-height: 1.4;
   }
