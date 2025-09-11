@@ -408,6 +408,17 @@ h1{
   }
 }
 
+@media (max-width:640px){
+  .hero .cheeky {
+    white-space: nowrap;
+    font-size: clamp(13px, 3.6vw, 16px); /* smaller so it fits */
+    padding: 0 16px;                      /* breathing room left & right */
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: clip;
+  }
+}
+
   </style>
 </head>
 
