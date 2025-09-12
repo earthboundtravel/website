@@ -27,7 +27,7 @@
     .wrap{max-width:960px;margin:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
     header{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--bg);padding:14px 16px;
       border-radius:var(--radius);box-shadow:var(--shadow)}
-    header img.logo{height:44px;width:auto}
+    header img.logo{height:auto;width:120px;}
     header .title{flex:1 1 300px}
     header h1{font-size:20px;margin:0}
     header p{margin:4px 0 0;color:var(--muted);font-size:14px}
@@ -57,6 +57,7 @@
     .footer{color:var(--muted);font-size:12px;text-align:center;padding-bottom:8px}
     .inline-other{display:flex;gap:10px;align-items:center}
     .inline-other input[type="text"]{flex:1 1 auto;min-width:180px}
+    @media (max-width:640px){header img.logo{height:auto;width:80px;}}
   </style>
 </head>
 <body>
@@ -65,8 +66,8 @@
       <img class="logo" alt="Earthbound Travel Co."
         src="https://raw.githubusercontent.com/earthboundtravel/website/refs/heads/main/earthbound-logo-condensed-transparent.png" />
       <div class="title">
-        <h1>Earthbound Travel Co. — Bridal Show Lead Capture</h1>
-        <p>Tell us about your dream honeymoon or destination wedding. We’ll do the planning — you do the celebrating.</p>
+        <h1>FORA + Earthbound Travel Co. — Canada's Bridal Show Lead Intake</h1>
+        <p>Please tell us about your dream honeymoon / destination wedding or any other kind of trip you are thinking of taking.</p>
       </div>
     </header>
 
@@ -79,29 +80,29 @@
 
       <div class="grid">
         <div class="col-6">
-          <label for="primaryName" class="req">Primary contact name</label>
+          <label for="primaryName" class="req">Primary Contact Name</label>
           <input id="primaryName" name="primary_name" required placeholder="e.g., Alex Carter" />
         </div>
         <div class="col-6">
-          <label for="partnerName">Partner name</label>
+          <label for="partnerName">Partner Name (if applicable)</label>
           <input id="partnerName" name="partner_name" placeholder="e.g., Jamie Lee" />
         </div>
 
         <div class="col-6">
-          <label for="email" class="req">Email</label>
+          <label for="email" class="req">Email Address</label>
           <input id="email" name="email" type="email" required
                  inputmode="email" autocomplete="email"
                  pattern="^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
                  placeholder="you@example.com" />
         </div>
         <div class="col-6">
-          <label for="phone" class="req">Mobile</label>
+          <label for="phone" class="req">Mobile Phone Number</label>
           <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
                  required placeholder="+1 (___) ___-____" />
         </div>
 
         <div class="col-6">
-          <label for="contactPref">Preferred contact</label>
+          <label for="contactPref">Preferred Contact Methoid</label>
           <select id="contactPref" name="preferred_contact">
             <option>Email</option>
             <option>SMS</option>
@@ -109,40 +110,40 @@
           </select>
         </div>
         <div class="col-6">
-          <label for="departAirport">Departure airport</label>
-          <input id="departAirport" name="departure_airport" value="YYZ" />
+          <label for="departAirport">Departure Airport (if known)</label>
+          <input id="departAirport" name="departure_airport" value="" />
         </div>
 
         <div class="col-6">
-          <label for="weddingDate">Wedding date</label>
+          <label for="weddingDate">Wedding Date (if applicable)</label>
           <input id="weddingDate" name="wedding_date" type="date" />
           <div class="small">Saved as <strong>MM/DD/YYYY</strong>.</div>
         </div>
         <div class="col-6">
-          <label for="venueCity">Wedding city / venue</label>
+          <label for="venueCity">Wedding City / Venue (if applicable)</label>
           <input id="venueCity" name="wedding_city_venue" placeholder="City or Venue name" />
         </div>
 
         <div class="col-6">
-          <label for="earliestDepart">Earliest depart</label>
+          <label for="earliestDepart">Earliest Departure (estimated)</label>
           <input id="earliestDepart" name="earliest_depart" type="date" />
           <div class="small">Saved as <strong>MM/DD/YYYY</strong>.</div>
         </div>
         <div class="col-6">
-          <label for="latestReturn">Latest return</label>
+          <label for="latestReturn">Latest Return Date (estimated)</label>
           <input id="latestReturn" name="latest_return" type="date" />
           <div class="small">Saved as <strong>MM/DD/YYYY</strong>.</div>
         </div>
 
         <div class="col-12">
-          <label for="destinations" class="req">Dream destinations</label>
+          <label for="destinations" class="req">Your Dream Destinations</label>
           <textarea id="destinations" name="destinations_text"
             placeholder="e.g., Santorini, Maldives, Riviera Maya, Italy road trip, overwater bungalows…"></textarea>
         </div>
 
         <div class="col-12">
           <fieldset>
-            <legend>Travel style</legend>
+            <legend>Your Travel Style</legend>
             <div class="checks">
               <label class="check-item"><input type="checkbox" name="style" value="Luxury"><span>Luxury</span></label>
               <label class="check-item"><input type="checkbox" name="style" value="All-Inclusive"><span>All-Inclusive</span></label>
@@ -160,7 +161,7 @@
           <fieldset>
             <legend>Loyalty Programs</legend>
 
-            <div class="section-title">Airlines</div>
+            <div class="section-title">Airline Loyalty</div>
             <div class="checks columns">
               <label class="check-item"><input type="checkbox" name="airline_loyalty" value="Aeroplan (Air Canada)"><span>Aeroplan (Air Canada)</span></label>
               <label class="check-item"><input type="checkbox" name="airline_loyalty" value="WestJet Rewards"><span>WestJet Rewards</span></label>
@@ -178,8 +179,8 @@
                 <input type="text" id="otherAirline" name="other_airline_loyalty" placeholder="e.g., British Airways Executive Club" />
               </div>
             </div>
-
-            <div class="section-title">Hotels</div>
+              <br>
+            <div class="section-title">Hotel Loyalty</div>
             <div class="checks columns">
               <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Marriott Bonvoy"><span>Marriott Bonvoy</span></label>
               <label class="check-item"><input type="checkbox" name="hotel_loyalty" value="Hilton Honors"><span>Hilton Honors</span></label>
@@ -201,7 +202,7 @@
         </div>
 
         <div class="col-12">
-          <label for="notes">Anything we should know?</label>
+          <label for="notes">Anything other information you would like to share?</label>
           <textarea id="notes" name="notes" rows="4" placeholder="Allergies, must-haves, resort preferences, airline status, etc."></textarea>
         </div>
 
@@ -209,16 +210,16 @@
           <div class="row">
             <label class="check-item">
               <input type="checkbox" id="newsletter" name="newsletter_opt_in" />
-              <span>Yes—send me honeymoon inspiration and deals.</span>
+              <span>Yes - Please send promotional offers and information.</span>
             </label>
           </div>
           <div class="row">
             <label class="check-item">
               <input type="checkbox" id="consent" name="consent" required />
-              <span class="req">I agree to be contacted about my trip plans (CASL compliant).</span>
+              <span class="req">I agree to be contacted about any trip plans we have discussed in today's meeting.</span>
             </label>
           </div>
-          <div class="small">We’ll never sell your data. Unsubscribe anytime.</div>
+          <div class="small">We’ll never sell your data. You can unsubscribe anytime.</div>
         </div>
 
         <div class="col-12 actions">
@@ -231,7 +232,7 @@
     </form>
 
     <div class="footer">
-      © <span id="year"></span> Earthbound Travel Co. • <a href="mailto:admin@earthbound.travel">admin@earthbound.travel</a>
+      © <span id="year"></span> Earthbound Travel Co. • <a href="mailto:admin@earthbound.travel">bookings@earthbound.travel</a>
     </div>
   </div>
 
