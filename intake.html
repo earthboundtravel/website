@@ -58,6 +58,27 @@
     .inline-other{display:flex;gap:10px;align-items:center}
     .inline-other input[type="text"]{flex:1 1 auto;min-width:180px}
     @media (max-width:640px){header img.logo{height:auto;width:60px;}}
+
+          /* 1) Separate column and row gaps for clarity */
+      .grid{
+        display:grid;
+        grid-template-columns:repeat(12,minmax(0,1fr));
+        column-gap: 24px; /* horizontal space between columns */
+        row-gap: 16px;    /* vertical space between rows */
+      }
+      
+      /* 2) Add inner padding to each half-width column on tablet/desktop */
+      @media (min-width: 700px){
+        .grid{ margin-left: -12px; margin-right: -12px; }      /* compensate for inner padding */
+        .grid .col-6{ padding-left: 12px; padding-right: 12px; }/* creates a comfy gutter */
+      }
+      
+      /* 3) When stacked on mobile, remove the inner padding */
+      @media (max-width: 699.98px){
+        .grid{ margin-left: 0; margin-right: 0; }
+        .grid .col-6{ padding-left: 0; padding-right: 0; }
+      }
+
   </style>
 </head>
 <body>
