@@ -34,7 +34,7 @@
       padding:0 20px;
       text-align:center;
     }
-    .brand img{height:48px;width:auto;margin-bottom:16px}
+    .brand img{height:auto;width:120px;margin-bottom:16px}
     h1{
       font-size:clamp(28px,4vw,42px);
       color:var(--eb-ocean);
@@ -68,10 +68,32 @@
 </head>
 <body>
   <main class="wrap" role="main">
+    <div class="brand">
+      <img src="https://raw.githubusercontent.com/earthboundtravel/website/refs/heads/main/earthbound-logo-condensed-transparent.png" alt="Earthbound Travel Co. logo">
+    </div>
+
     <h1>Thanks! I'll take it from here! </h1>
     <p>Your request has been received. I’ll be in touch within 24 hours to start planning your trip.</p>
     <p>In the meantime, please feel free to explore more stories and inspiration on my website.</p>
+
+
+<button onclick="if(!window.close()) window.location.href='/'" 
+        style="padding:12px 20px;
+               border:none;
+               border-radius:6px;
+               background:#008080;
+               color:#fff;
+               font-size:16px;
+               font-weight:600;
+               cursor:pointer;">
+  Done
+</button>
+
+
   </main>
   
+
+
+
 </body>
 </html>
