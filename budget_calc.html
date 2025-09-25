@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travel Budget Calculator</title>
+  <meta name="description" content="Responsive travel budget calculator with per‑day/one‑time items, per‑person toggle, taxes, contingency, autosave, and iframe auto‑resize. No branding." />
+  <style>
+    :root{
+      --panel: transparent;
+      --ink: #000000;
+      --muted: #4b5563;
+      --accent: #2563eb;
+      --accent-2:#059669;
+      --danger: #dc2626;
+      --warn: #d97706;
+      --line: #e5e7eb;
+      --radius: 14px;
+      --pad: 14px; --pad-lg: 18px; --maxw: 1100px;
+      --focus: 0 0 0 3px rgba(37,99,235,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+      background: transparent; /* blends with host site */
+      color: var(--ink);
+      line-height:1.45;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{max-width:var(--maxw);margin-inline:auto;padding:20px}
+    @media (max-width:480px){ .wrap{padding:12px} }
+
+    header{display:grid;gap:8px;align-items:center;margin:4px 0 14px}
+    header h1{margin:0;font-size:clamp(20px,3.5vw,28px);letter-spacing:.2px}
+    header p{margin:0;color:var(--muted);font-size:clamp(12px,2.6vw,14px)}
+
+    .toolbar{display:grid;gap:12px;grid-template-columns:1fr;align-items:end;margin:12px 0 16px}
+    .tool-grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
+    .tool-grid > *{grid-column:span 12}
+    @media (min-width:720px){
+      .tool-grid > .col-6{grid-column:span 6}
+      .tool-grid > .col-4{grid-column:span 4}
+      .tool-grid > .col-3{grid-column:span 3}
+      .tool-grid > .col-2{grid-column:span 2}
+    }
+
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
+    .card .hd{padding:var(--pad-lg);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+    .card .hd h2{margin:0;font-size:16px}
+    .card .bd{padding:var(--pad-lg)}
+
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="number"], select, textarea{
+      width:100%;background:#ffffff;color:#0b1020;border:1px solid #d1d5db;
+      padding:10px 12px;border-radius:10px;outline:none;box-shadow:none;transition:.15s;min-width:0;font-size:14px;
+    }
+    @media (max-width:600px){
+      input[type="text"], input[type="number"], select, textarea{padding:9px 10px;font-size:13px}
+    }
+    input:focus, select:focus, textarea:focus{box-shadow:var(--focus);border-color:#93c5fd}
+    input[type="checkbox"]{width:18px;height:18px}
+    small.help{color:var(--muted);display:block;margin-top:6px}
+
+    /* Date inputs: normalize look */
+    input[type="date"]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:#ffffff;color:#0b1020;border:1px solid #d1d5db;padding:10px 12px;border-radius:10px;outline:none;font-size:14px;font-family:inherit;min-width:0}
+    input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;filter:invert(.5);opacity:.7;margin-left:4px}
+    input[type="date"]::-moz-focus-inner{border:0;padding:0}
+
+    .grid{display:grid;gap:12px}
+    .row{display:flex;gap:10px;align-items:center}
+
+    .btn{appearance:none;border:1px solid #d1d5db;background:#ffffff;color:#111827;padding:10px 12px;border-radius:10px;cursor:pointer;transition:.15s;font-weight:600}
+    .btn:hover{transform:translateY(-1px)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{background:var(--accent);color:#ffffff;border-color:transparent}
+    .btn.good{background:var(--accent-2);color:#ffffff;border-color:transparent}
+    .btn.warn{background:var(--warn);color:#ffffff;border-color:transparent}
+    .btn.ghost{background:transparent}
+    .btn.danger{background:var(--danger);color:#ffffff;border-color:transparent}
+
+    .table-wrap{overflow:auto;-webkit-overflow-scrolling:touch}
+    table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:#ffffff}
+    thead th{position:sticky;top:0;background:#f3f4f6;color:#111827;font-weight:600;font-size:12px;text-align:left;padding:12px;border-bottom:1px solid var(--line);z-index:1}
+    tbody td{padding:8px 10px;border-bottom:1px dashed var(--line);color:#111827;vertical-align:top}
+    tbody tr:last-child td{border-bottom:none}
+    tbody tr:hover{background:#f9fafb}
+
+    /* Mobile stacked view */
+    @media (max-width:860px){
+      table.stacked thead{display:none}
+      table.stacked, table.stacked tbody, table.stacked tr, table.stacked td{display:block;width:100%}
+      table.stacked tr{border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:10px;padding:8px}
+      table.stacked td{border:0;padding:6px 4px}
+      table.stacked td[data-label]{display:flex;gap:8px;align-items:center}
+      table.stacked td[data-label]::before{content:attr(data-label);flex:0 0 44%;color:#6b7280;font-size:12px}
+      table.stacked td:last-child{padding-bottom:2px}
+      .cell-actions{justify-content:flex-end}
+    }
+
+    .cell-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 10px;border-radius:999px;background:#ffffff}
+    .chip strong{font-size:13px}
+
+    .totals{display:grid;gap:10px}
+    @media (min-width:820px){.totals{grid-template-columns:repeat(4,1fr)}}
+    .total-box{background:#ffffff;border:1px solid var(--line);border-radius:12px;padding:14px}
+    .total-box h3{margin:0 0 8px;font-size:13px;color:var(--muted)}
+    .total-box .num{font-size:22px;font-weight:800;letter-spacing:.3px;color:#111827}
+
+    .sticky-footer{position:sticky;bottom:0;left:0;right:0;background:transparent;padding:10px 0 14px;border-top:1px solid var(--line);margin-top:20px}
+
+    .notice{font-size:12px;color:var(--muted)}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;display:inline-block;padding:2px 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px}
+    .hr{height:1px;background:var(--line);margin:12px 0}
+    .right{margin-left:auto}
+
+    .hide-print{ }
+    .only-print{display:none}
+    @media print{
+      .hide-print{display:none !important}
+      .only-print{display:block}
+      .wrap{max-width:1000px}
+      thead th{position:static}
+      body{background:#ffffff}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="application">
+    <header>
+      <h1>Travel Budget Calculator</h1>
+      <p class="notice">Plan per‑day and one‑time costs, set group size, add taxes, contingency, and save for later. All data stays in your browser.</p>
+    </header>
+
+    <!-- TOP CONTROLS -->
+    <section class="toolbar card" aria-label="Calculator controls">
+      <div class="hd">
+        <h2>Trip Settings</h2>
+        <div class="row hide-print">
+          <button class="btn" id="resetBtn" title="Clear all">Reset</button>
+          <button class="btn good" id="saveBtn" title="Save locally">Save</button>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="tool-grid">
+          <div class="col-3">
+            <label for="tripName">Trip name</label>
+            <input id="tripName" type="text" placeholder="e.g., Portugal Family Trip" />
+          </div>
+          <div class="col-3">
+            <label for="startDate">Start date</label>
+            <input id="startDate" type="date" />
+            <small class="help">Used to calculate nights if an end date is provided.</small>
+          </div>
+          <div class="col-3">
+            <label for="endDate">End date</label>
+            <input id="endDate" type="date" />
+            <small class="help">Nights automatically calculated: <span id="nightsLabel">0</span></small>
+          </div>
+          <div class="col-3">
+            <label for="groupSize">Travelers</label>
+            <input id="groupSize" type="number" min="1" step="1" value="1" />
+          </div>
+
+          <div class="col-3">
+            <label for="currency">Currency</label>
+            <select id="currency" aria-label="Currency">
+              <option value="USD" selected>USD</option>
+              <option value="CAD">CAD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="AUD">AUD</option>
+              <option value="JPY">JPY</option>
+              <option value="INR">INR</option>
+              <option value="BRL">BRL</option>
+              <option value="MXN">MXN</option>
+              <option value="ZAR">ZAR</option>
+            </select>
+            <small class="help">Formatting only. (No live exchange rates.)</small>
+          </div>
+          <div class="col-3">
+            <label for="taxPct">Taxes & fees (%)</label>
+            <input id="taxPct" type="number" min="0" step="0.1" value="0" />
+          </div>
+          <div class="col-3">
+            <label for="contingencyPct">Contingency (%)</label>
+            <input id="contingencyPct" type="number" min="0" step="0.5" value="0" />
+            <small class="help">Add a buffer for surprises.</small>
+          </div>
+          <div class="col-3">
+            <label for="notes">Notes</label>
+            <input id="notes" type="text" placeholder="Optional" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITEMS TABLE -->
+    <section class="card" aria-label="Budget items">
+      <div class="hd">
+        <h2>Budget Items</h2>
+        <div class="row hide-print">
+          <button class="btn primary" id="addRowBtn">Add item</button>
+          <button class="btn" id="addStarterBtn" title="Add common items">Quick add</button>
+        </div>
+      </div>
+      <div class="bd table-wrap">
+        <table id="itemsTable" class="stacked" aria-describedby="tableHelp">
+          <thead>
+            <tr>
+              <th style="min-width:160px">Item</th>
+              <th>Type</th>
+              <th title="If checked, cost applies per traveler">Per person</th>
+              <th>Qty</th>
+              <th>Unit cost</th>
+              <th>Days</th>
+              <th>Subtotal</th>
+              <th class="hide-print">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="itemsBody"><!-- rows injected --></tbody>
+        </table>
+        <small id="tableHelp" class="help">Type = One‑time or Per‑day. Per‑person multiplies by traveler count. “Days” multiplies only Per‑day items; leave blank to auto‑use trip nights.</small>
+      </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="card" aria-label="Summary">
+      <div class="hd">
+        <h2>Summary</h2>
+        <div class="row hide-print">
+          <span class="chip"><strong>Nights:</strong> <span id="sumNights">0</span></span>
+          <span class="chip"><strong>Items:</strong> <span id="sumItems">0</span></span>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="totals">
+          <div class="total-box">
+            <h3>Subtotal</h3>
+            <div class="num" id="subtotalDisplay">—</div>
+          </div>
+          <div class="total-box">
+            <h3>Taxes & fees</h3>
+            <div class="num" id="taxDisplay">—</div>
+          </div>
+          <div class="total-box">
+            <h3>Contingency</h3>
+            <div class="num" id="contDisplay">—</div>
+          </div>
+          <div class="total-box">
+            <h3>Total (all travelers)</h3>
+            <div class="num" id="grandDisplay">—</div>
+          </div>
+        </div>
+        <div class="hr"></div>
+        <div class="totals">
+          <div class="total-box">
+            <h3>Per traveler</h3>
+            <div class="num" id="perPersonDisplay">—</div>
+          </div>
+          <div class="total-box">
+            <h3>Per night (group)</h3>
+            <div class="num" id="perNightDisplay">—</div>
+          </div>
+          <div class="total-box">
+            <h3>Per day (group)</h3>
+            <div class="num" id="perDayDisplay">—</div>
+          </div>
+          <div class="total-box">
+            <h3>One‑time vs Daily</h3>
+            <div class="num" id="splitDisplay">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sticky-footer hide-print" aria-label="Footer actions">
+      <div class="wrap" style="padding-top:0">
+        <div class="row" style="gap:12px;align-items:center">
+          <div class="chip" title="Grand total">
+            <strong>Total</strong>
+            <span id="grandMini">—</span>
+          </div>
+          <div class="right notice">Tip: press <span class="kbd">Ctrl/Cmd + S</span> to save locally.</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+  (function(){
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    const els = {
+      tripName: $('#tripName'), startDate: $('#startDate'), endDate: $('#endDate'), nightsLabel: $('#nightsLabel'),
+      groupSize: $('#groupSize'), currency: $('#currency'), taxPct: $('#taxPct'), contingencyPct: $('#contingencyPct'),
+      notes: $('#notes'), itemsBody: $('#itemsBody'), sumNights: $('#sumNights'), sumItems: $('#sumItems'),
+      subtotalDisplay: $('#subtotalDisplay'), taxDisplay: $('#taxDisplay'), contDisplay: $('#contDisplay'),
+      grandDisplay: $('#grandDisplay'), perPersonDisplay: $('#perPersonDisplay'), perNightDisplay: $('#perNightDisplay'),
+      perDayDisplay: $('#perDayDisplay'), splitDisplay: $('#splitDisplay'), grandMini: $('#grandMini'),
+      addRowBtn: $('#addRowBtn'), addStarterBtn: $('#addStarterBtn'), resetBtn: $('#resetBtn'), saveBtn: $('#saveBtn'),
+      table: $('#itemsTable')
+    };
+
+    const STORAGE_KEY = 'travelBudget_v3'; // bump version
+
+    let model = {
+      meta: { name:'', start:'', end:'', notes:'' },
+      settings: { travelers:1, currency:'USD', taxPct:0, contingencyPct:0 },
+      items: [] // { id, name, type:'one'|'day', perPerson:true|false, qty:1, unit:0, days:'' }
+    };
+
+    const uid = () => Math.random().toString(36).slice(2,9);
+    const num = (v, d=0) => { const n = parseFloat(v); return Number.isFinite(n) ? n : d };
+    const fmt = (n) => new Intl.NumberFormat(undefined, { style:'currency', currency: model.settings.currency || 'USD' }).format(Number.isFinite(n)? n : 0);
+
+    function computeNights(){
+      if(!els.startDate.value || !els.endDate.value) return 0;
+      const a = new Date(els.startDate.value);
+      const b = new Date(els.endDate.value);
+      const diff = Math.floor((b - a) / (1000*60*60*24));
+      return Math.max(diff, 0);
+    }
+
+    function addItem(partial){
+      const row = Object.assign({ id:uid(), name:'', type:'one', perPerson:false, qty:1, unit:0, days:'' }, partial||{});
+      model.items.push(row);
+      renderItems(); autosave(); scheduleResizePing();
+    }
+    function removeItem(id){ model.items = model.items.filter(x => x.id !== id); renderItems(); autosave(); scheduleResizePing(); }
+    function duplicateItem(id){ const it = model.items.find(x=>x.id===id); if(!it) return; const copy = Object.assign({}, it, { id:uid() }); model.items.push(copy); renderItems(); autosave(); scheduleResizePing(); }
+
+    function bindRow(tr, it){
+      tr.querySelector('[data-f=name]').addEventListener('input', e=>{ it.name = e.target.value; autosave(); calc(); scheduleResizePing(); });
+      tr.querySelector('[data-f=type]').addEventListener('change', e=>{ it.type = e.target.value; autosave(); calc(); scheduleResizePing(); });
+      tr.querySelector('[data-f=per]').addEventListener('change', e=>{ it.perPerson = e.target.checked; autosave(); calc(); scheduleResizePing(); });
+      tr.querySelector('[data-f=qty]').addEventListener('input', e=>{ it.qty = num(e.target.value, 0); autosave(); calc(); scheduleResizePing(); });
+      tr.querySelector('[data-f=unit]').addEventListener('input', e=>{ it.unit = num(e.target.value, 0); autosave(); calc(); scheduleResizePing(); });
+      tr.querySelector('[data-f=days]').addEventListener('input', e=>{ it.days = e.target.value; autosave(); calc(); scheduleResizePing(); });
+      tr.querySelector('[data-act=del]').addEventListener('click',()=> removeItem(it.id));
+      tr.querySelector('[data-act=dup]').addEventListener('click',()=> duplicateItem(it.id));
+    }
+
+    function rowSubtotal(it, nights){
+      const qty = Math.max(num(it.qty,0), 0);
+      const unit = Math.max(num(it.unit,0), 0);
+      let base = qty * unit;
+      if(it.type === 'day'){
+        const days = it.days === '' ? nights : Math.max(num(it.days,0), 0);
+        base = base * (days || 0);
+      }
+      if(it.perPerson){ base = base * Math.max(num(model.settings.travelers,1), 1); }
+      return base;
+    }
+
+    const headerLabels = ['Item','Type','Per person','Qty','Unit cost','Days','Subtotal','Actions'];
+
+    function renderItems(){
+      els.itemsBody.innerHTML = '';
+      const nights = computeNights();
+      model.items.forEach(it => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td data-label="${headerLabels[0]}"><input data-f="name" type="text" placeholder="e.g., Flights, Hotel, Meals" value="${escapeHtml(it.name)}" /></td>
+          <td data-label="${headerLabels[1]}">
+            <select data-f="type">
+              <option value="one" ${it.type==='one'?'selected':''}>One‑time</option>
+              <option value="day" ${it.type==='day'?'selected':''}>Per‑day</option>
+            </select>
+          </td>
+          <td data-label="${headerLabels[2]}" style="text-align:left"><input data-f="per" type="checkbox" ${it.perPerson? 'checked':''} aria-label="Per person" /></td>
+          <td data-label="${headerLabels[3]}"><input data-f="qty" type="number" min="0" step="0.01" value="${num(it.qty,0)}" /></td>
+          <td data-label="${headerLabels[4]}"><input data-f="unit" type="number" min="0" step="0.01" value="${num(it.unit,0)}" /></td>
+          <td data-label="${headerLabels[5]}"><input data-f="days" type="number" min="0" step="1" placeholder="auto" value="${it.days}" /></td>
+          <td data-label="${headerLabels[6]}"><output>${fmt(rowSubtotal(it, nights))}</output></td>
+          <td data-label="${headerLabels[7]}" class="hide-print">
+            <div class="cell-actions">
+              <button class="btn" data-act="dup" title="Duplicate">Duplicate</button>
+              <button class="btn danger" data-act="del" title="Delete">Delete</button>
+            </div>
+          </td>`;
+        els.itemsBody.appendChild(tr);
+        bindRow(tr, it);
+      });
+      calc(); scheduleResizePing();
+    }
+
+    function calc(){
+      model.meta.name = (els.tripName.value||'').trim();
+      model.meta.start = els.startDate.value;
+      model.meta.end = els.endDate.value;
+      model.meta.notes = (els.notes ? els.notes.value : '').trim();
+      model.settings.travelers = parseInt(els.groupSize.value||1,10);
+      model.settings.currency = els.currency.value;
+      model.settings.taxPct = num(els.taxPct.value,0);
+      model.settings.contingencyPct = num(els.contingencyPct.value,0);
+
+      const nights = computeNights();
+      if(els.nightsLabel) els.nightsLabel.textContent = nights;
+      if(els.sumNights) els.sumNights.textContent = nights;
+      if(els.sumItems) els.sumItems.textContent = model.items.length;
+
+      let subtotal = 0, oneTime=0, daily=0;
+      for(const it of model.items){
+        const st = rowSubtotal(it, nights);
+        subtotal += st;
+        if(it.type==='one') oneTime += st; else daily += st;
+      }
+      const taxes = subtotal * (model.settings.taxPct/100);
+      const cont = (subtotal + taxes) * (model.settings.contingencyPct/100);
+      const grand = subtotal + taxes + cont;
+
+      const travelers = Math.max(model.settings.travelers, 1);
+      const perPerson = travelers>0 ? (grand / travelers) : 0;
+      const perNight = nights>0 ? (grand / nights) : 0;
+      const perDay = perNight;
+
+      els.subtotalDisplay.textContent = fmt(subtotal);
+      els.taxDisplay.textContent = fmt(taxes);
+      els.contDisplay.textContent = fmt(cont);
+      els.grandDisplay.textContent = fmt(grand);
+      els.perPersonDisplay.textContent = fmt(perPerson);
+      els.perNightDisplay.textContent = nights>0 ? fmt(perNight) : '—';
+      els.perDayDisplay.textContent = nights>0 ? fmt(perDay) : '—';
+      els.splitDisplay.textContent = `${fmt(oneTime)} one‑time / ${fmt(daily)} daily`;
+      els.grandMini.textContent = fmt(grand);
+
+      // Update row subtotals
+      const rows = $$('#itemsBody tr');
+      rows.forEach((tr, idx)=>{
+        const it = model.items[idx];
+        const out = tr.querySelector('output');
+        if(out) out.textContent = fmt(rowSubtotal(it, nights));
+      });
+    }
+
+    function autosave(){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(model)); }catch(e){} }
+    function loadFromStorage(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return;
+        const saved = JSON.parse(raw);
+        if(saved && Array.isArray(saved.items)) model = saved;
+      }catch(e){}
+    }
+    function applyModelToUI(){
+      els.tripName.value = model.meta.name || '';
+      els.startDate.value = model.meta.start || '';
+      els.endDate.value = model.meta.end || '';
+      if(els.notes) els.notes.value = model.meta.notes || '';
+      els.groupSize.value = model.settings.travelers || 1;
+      els.currency.value = model.settings.currency || 'USD';
+      els.taxPct.value = model.settings.taxPct || 0;
+      els.contingencyPct.value = model.settings.contingencyPct || 0;
+      renderItems(); calc(); scheduleResizePing();
+    }
+
+    function quickAdd(){
+      const presets = [
+        {name:'Flights (roundtrip)', type:'one', perPerson:true, qty:1, unit:600},
+        {name:'Accommodation (per room)', type:'day', perPerson:false, qty:1, unit:150},
+        {name:'Meals', type:'day', perPerson:true, qty:1, unit:40},
+        {name:'Local transport', type:'day', perPerson:false, qty:1, unit:25},
+        {name:'Tours & activities', type:'one', perPerson:true, qty:2, unit:50},
+        {name:'Travel insurance', type:'one', perPerson:true, qty:1, unit:30}
+      ];
+      presets.forEach(p=> addItem(p));
+    }
+
+    function resetAll(){
+      if(!confirm('Clear all data?')) return;
+      model = { meta:{name:'',start:'',end:'',notes:''}, settings:{travelers:1,currency:'USD',taxPct:0,contingencyPct:0}, items:[] };
+      applyModelToUI(); autosave(); scheduleResizePing();
+    }
+
+    // ===== Auto-resize for iframe embedding =====
+    function getEmbedId(){ return new URLSearchParams(location.search).get('embedId') || '' }
+    function postHeight(){
+      const height = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight
+      );
+      const payload = { type:'resize-iframe', height, embedId:getEmbedId(), src:location.href };
+      try{ parent.postMessage(payload, '*'); }catch(e){}
+    }
+    let resizeTimer;
+    function scheduleResizePing(){ clearTimeout(resizeTimer); resizeTimer = setTimeout(postHeight, 60); }
+
+    const ro = new ResizeObserver(scheduleResizePing);
+    ro.observe(document.documentElement);
+    ro.observe(document.body);
+
+    const mo = new MutationObserver(scheduleResizePing);
+    mo.observe(document.body, { childList:true, subtree:true, attributes:true, characterData:true });
+
+    window.addEventListener('load', scheduleResizePing);
+    window.addEventListener('resize', scheduleResizePing);
+
+    // Events
+    ['input','change'].forEach(ev=>{
+      [els.tripName,els.startDate,els.endDate,els.groupSize,els.currency,els.taxPct,els.contingencyPct,els.notes].forEach(el=>{
+        if(!el) return; el.addEventListener(ev, ()=>{ calc(); autosave(); scheduleResizePing(); });
+      });
+    });
+    if(els.addRowBtn) els.addRowBtn.addEventListener('click', ()=> addItem({name:'New item'}));
+    if(els.addStarterBtn) els.addStarterBtn.addEventListener('click', quickAdd);
+    if(els.resetBtn) els.resetBtn.addEventListener('click', resetAll);
+    if(els.saveBtn) els.saveBtn.addEventListener('click', ()=>{ autosave(); alert('Saved locally'); scheduleResizePing(); });
+
+    // INIT: start empty by default; only load saved data if present
+    loadFromStorage();
+    applyModelToUI();
+
+    // Utils
+    function escapeHtml(s){
+      s = s==null ? '' : String(s);
+      return s.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[m]); });
+    }
+  })();
+  </script>
+</body>
+</html>
