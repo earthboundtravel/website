@@ -17,6 +17,7 @@
       --radius: 14px;
       --pad: 14px; --pad-lg: 18px; --maxw: 1100px;
       --focus: 0 0 0 3px rgba(37,99,235,.25);
+      --sticky-bg: rgba(255,255,255,.95);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -33,6 +34,11 @@
 header h1{margin:0;font-size:clamp(20px,3.5vw,28px);letter-spacing:.2px}
 header p{margin:0;color:var(--muted);font-size:clamp(12px,2.6vw,14px)}
 
+/* ===== Mini sticky bar (only total + reset + save) ===== */
+.mini-sticky{position:sticky;top:0;z-index:1000;background:var(--sticky-bg);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+.mini-sticky .bd{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;flex-wrap:wrap}
+.mini-sticky .left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
 .toolbar{display:grid;gap:12px;grid-template-columns:1fr;align-items:end;margin:12px 0 16px}
 .tool-grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
 .tool-grid > *{grid-column:span 12}
@@ -47,10 +53,6 @@ header p{margin:0;color:var(--muted);font-size:clamp(12px,2.6vw,14px)}
 .card .hd{padding:var(--pad-lg);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .card .hd h2{margin:0;font-size:16px}
 .card .bd{padding:var(--pad-lg)}
-
-/* Make Trip Settings bar sticky */
-.card.sticky{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.92);backdrop-filter:blur(6px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
-.card.sticky .hd{border-bottom-color:#e5e7eb}
 
 label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
 input[type="text"], input[type="number"], select, textarea{
@@ -111,8 +113,6 @@ tbody tr:hover{background:#f9fafb}
 .total-box h3{margin:0 0 8px;font-size:13px;color:var(--muted)}
 .total-box .num{font-size:22px;font-weight:800;letter-spacing:.3px;color:#111827}
 
-.sticky-footer{display:none} /* footer total removed; now in sticky bar */
-
 .notice{font-size:12px;color:var(--muted)}
 .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;display:inline-block;padding:2px 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px}
 .hr{height:1px;background:var(--line);margin:12px 0}
@@ -121,6 +121,7 @@ tbody tr:hover{background:#f9fafb}
 .hide-print{ }
 .only-print{display:none}
 @media print{
+  .mini-sticky{position:static;box-shadow:none;border:none}
   .hide-print{display:none !important}
   .only-print{display:block}
   .wrap{max-width:1000px}
@@ -135,18 +136,26 @@ tbody tr:hover{background:#f9fafb}
     <header>
       <h1>Travel Budget Calculator</h1>
       <p class="notice">Plan per‑day and one‑time costs, set group size, add taxes, contingency, and save for later. All data stays in your browser.</p>
-    </header><!-- TOP CONTROLS (now sticky) -->
-<section class="toolbar card sticky" aria-label="Calculator controls">
-  <div class="hd">
-    <h2>Trip Settings</h2>
-    <div class="row right hide-print" style="gap:10px">
+    </header><!-- Mini sticky bar: ONLY Total + Reset + Save -->
+<section class="mini-sticky" aria-label="Quick actions">
+  <div class="bd">
+    <div class="left">
       <span class="chip" title="Grand total (all travelers)">
         <strong>Total</strong>
         <span class="num" id="grandTop">—</span>
       </span>
+    </div>
+    <div class="row hide-print" style="gap:10px">
       <button class="btn" id="resetBtn" title="Clear all">Reset</button>
       <button class="btn good" id="saveBtn" title="Save locally">Save</button>
     </div>
+  </div>
+</section>
+
+<!-- TRIP SETTINGS (not sticky now) -->
+<section class="toolbar card" aria-label="Trip settings">
+  <div class="hd">
+    <h2>Trip Settings</h2>
   </div>
   <div class="bd">
     <div class="tool-grid">
@@ -297,7 +306,7 @@ tbody tr:hover{background:#f9fafb}
       table: $('#itemsTable')
     };
 
-    const STORAGE_KEY = 'travelBudget_v4'; // bump version
+    const STORAGE_KEY = 'travelBudget_v5'; // bump version
 
     let model = {
       meta: { name:'', start:'', end:'', notes:'' },
@@ -422,7 +431,7 @@ tbody tr:hover{background:#f9fafb}
       els.perDayDisplay.textContent = nights>0 ? fmt(perDay) : '—';
       els.splitDisplay.textContent = `${fmt(oneTime)} one‑time / ${fmt(daily)} daily`;
 
-       // Update row subtotals
+      // Update row subtotals
       const rows = $$('#itemsBody tr');
       rows.forEach((tr, idx)=>{
         const it = model.items[idx];
