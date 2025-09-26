@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Travel Budget Calculator</title>
-  <meta name="description" content="Responsive travel budget calculator with per‑day/one‑time items, per‑person toggle, taxes, contingency, autosave, and iframe auto‑resize. No branding." />
+  <meta name="description" content="Responsive travel budget calculator with per-day/one-time items, per-person toggle, taxes, autosave, iframe auto-resize, and sticky quick actions. No branding." />
   <style>
     :root{
       --panel: transparent;
@@ -16,14 +16,15 @@
       --warn: #d97706;
       --line: #e5e7eb;
       --radius: 14px;
-      --pad: 14px; --pad-lg: 18px; --maxw: 1100px;
+      --pad: 14px; --pad-lg: 18px; --maxw: 1280px; /* wider desktop */
       --focus: 0 0 0 3px rgba(37,99,235,.25);
+      --sticky-bg: rgba(255,255,255,.95);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-      background: transparent; /* blends with host site */
+      background: transparent;
       color: var(--ink);
       line-height:1.45;
       -webkit-font-smoothing:antialiased;
@@ -32,9 +33,10 @@
     .wrap{max-width:var(--maxw);margin-inline:auto;padding:20px}
     @media (max-width:480px){ .wrap{padding:12px} }
 
-    header{display:grid;gap:8px;align-items:center;margin:4px 0 14px}
-    header h1{margin:0;font-size:clamp(20px,3.5vw,28px);letter-spacing:.2px}
-    header p{margin:0;color:var(--muted);font-size:clamp(12px,2.6vw,14px)}
+    /* ===== Mini sticky bar (only total + reset + save) ===== */
+    .mini-sticky{position:sticky;top:0;z-index:1000;background:var(--sticky-bg);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    .mini-sticky .bd{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:10px 12px;flex-wrap:wrap}
+    .mini-sticky .left{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
     .toolbar{display:grid;gap:12px;grid-template-columns:1fr;align-items:end;margin:12px 0 16px}
     .tool-grid{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
@@ -47,7 +49,7 @@
     }
 
     .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius)}
-    .card .hd{padding:var(--pad-lg);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+    .card .hd{padding:var(--pad-lg);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:10px}
     .card .hd h2{margin:0;font-size:16px}
     .card .bd{padding:var(--pad-lg)}
 
@@ -63,13 +65,13 @@
     input[type="checkbox"]{width:18px;height:18px}
     small.help{color:var(--muted);display:block;margin-top:6px}
 
-    /* Date inputs: normalize look */
+    /* Date inputs styled to match others */
     input[type="date"]{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:#ffffff;color:#0b1020;border:1px solid #d1d5db;padding:10px 12px;border-radius:10px;outline:none;font-size:14px;font-family:inherit;min-width:0}
     input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;filter:invert(.5);opacity:.7;margin-left:4px}
     input[type="date"]::-moz-focus-inner{border:0;padding:0}
 
     .grid{display:grid;gap:12px}
-    .row{display:flex;gap:10px;align-items:center}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
     .btn{appearance:none;border:1px solid #d1d5db;background:#ffffff;color:#111827;padding:10px 12px;border-radius:10px;cursor:pointer;transition:.15s;font-weight:600}
     .btn:hover{transform:translateY(-1px)}
@@ -87,7 +89,7 @@
     tbody tr:last-child td{border-bottom:none}
     tbody tr:hover{background:#f9fafb}
 
-    /* Mobile stacked view */
+    /* Mobile stacked table */
     @media (max-width:860px){
       table.stacked thead{display:none}
       table.stacked, table.stacked tbody, table.stacked tr, table.stacked td{display:block;width:100%}
@@ -99,9 +101,11 @@
       .cell-actions{justify-content:flex-end}
     }
 
-    .cell-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .cell-actions{display:flex;gap:6px;flex-wrap:nowrap;align-items:center}
+
     .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 10px;border-radius:999px;background:#ffffff}
     .chip strong{font-size:13px}
+    .chip .num{font-weight:800}
 
     .totals{display:grid;gap:10px}
     @media (min-width:820px){.totals{grid-template-columns:repeat(4,1fr)}}
@@ -109,35 +113,38 @@
     .total-box h3{margin:0 0 8px;font-size:13px;color:var(--muted)}
     .total-box .num{font-size:22px;font-weight:800;letter-spacing:.3px;color:#111827}
 
-    .sticky-footer{position:sticky;bottom:0;left:0;right:0;background:transparent;padding:10px 0 14px;border-top:1px solid var(--line);margin-top:20px}
+    .scroll-top{position:fixed;bottom:20px;right:20px;z-index:2000;display:none;background:var(--accent);color:#fff;border:none;border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:18px;box-shadow:0 4px 8px rgba(0,0,0,.2)}
+    .scroll-top:hover{background:var(--accent-2)}
 
-    .notice{font-size:12px;color:var(--muted)}
-    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;display:inline-block;padding:2px 6px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px}
-    .hr{height:1px;background:var(--line);margin:12px 0}
-    .right{margin-left:auto}
-
-    .hide-print{ }
-    .only-print{display:none}
     @media print{
-      .hide-print{display:none !important}
-      .only-print{display:block}
-      .wrap{max-width:1000px}
-      thead th{position:static}
-      body{background:#ffffff}
+      .mini-sticky{position:static;box-shadow:none;border:none}
+      .scroll-top{display:none !important}
     }
   </style>
 </head>
 <body>
   <div class="wrap" role="application">
-   
-    <!-- TOP CONTROLS -->
-    <section class="toolbar card" aria-label="Calculator controls">
-      <div class="hd">
-        <h2>Trip Settings</h2>
-        <div class="row hide-print">
+
+    <!-- Mini sticky bar: ONLY Total + Reset + Save -->
+    <section class="mini-sticky" aria-label="Quick actions">
+      <div class="bd">
+        <div class="left">
+          <span class="chip" title="Grand total (all travelers)">
+            <strong>Total</strong>
+            <span class="num" id="grandTop">—</span>
+          </span>
+        </div>
+        <div class="row hide-print" style="gap:10px">
           <button class="btn" id="resetBtn" title="Clear all">Reset</button>
           <button class="btn good" id="saveBtn" title="Save locally">Save</button>
         </div>
+      </div>
+    </section>
+
+    <!-- TRIP SETTINGS -->
+    <section class="toolbar card" aria-label="Trip settings">
+      <div class="hd">
+        <h2>Trip Settings</h2>
       </div>
       <div class="bd">
         <div class="tool-grid">
@@ -163,8 +170,8 @@
           <div class="col-3">
             <label for="currency">Currency</label>
             <select id="currency" aria-label="Currency">
-              <option value="CAD" selected>CAD</option>
-              <option value="USD">USD</option>
+              <option value="USD" selected>USD</option>
+              <option value="CAD">CAD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
               <option value="AUD">AUD</option>
@@ -180,12 +187,7 @@
             <label for="taxPct">Taxes & fees (%)</label>
             <input id="taxPct" type="number" min="0" step="0.1" value="0" />
           </div>
-          <div class="col-3">
-            <label for="contingencyPct">Contingency (%)</label>
-            <input id="contingencyPct" type="number" min="0" step="0.5" value="0" />
-            <small class="help">Add a buffer for surprises.</small>
-          </div>
-          <div class="col-3">
+          <div class="col-6">
             <label for="notes">Notes</label>
             <input id="notes" type="text" placeholder="Optional" />
           </div>
@@ -206,19 +208,19 @@
         <table id="itemsTable" class="stacked" aria-describedby="tableHelp">
           <thead>
             <tr>
-              <th style="min-width:160px">Item</th>
+              <th style="min-width:220px">Item</th>
               <th>Type</th>
               <th title="If checked, cost applies per traveler">Per person</th>
-              <th>Qty</th>
-              <th>Unit cost</th>
-              <th>Days</th>
-              <th>Subtotal</th>
-              <th class="hide-print">Actions</th>
+              <th style="min-width:110px">Qty</th>
+              <th style="min-width:140px">Unit cost</th>
+              <th style="min-width:100px">Days</th>
+              <th style="min-width:140px">Subtotal</th>
+              <th class="hide-print" style="min-width:200px">Actions</th>
             </tr>
           </thead>
-          <tbody id="itemsBody"><!-- rows injected --></tbody>
+          <tbody id="itemsBody"></tbody>
         </table>
-        <small id="tableHelp" class="help">Type = One‑time or Per‑day. Per‑person multiplies by traveler count. “Days” multiplies only Per‑day items; leave blank to auto‑use trip nights.</small>
+        <small id="tableHelp" class="help">Type = One-time or Per-day. Per-person multiplies by traveler count. “Days” multiplies only Per-day items; leave blank to auto-use trip nights.</small>
       </div>
     </section>
 
@@ -242,49 +244,20 @@
             <div class="num" id="taxDisplay">—</div>
           </div>
           <div class="total-box">
-            <h3>Contingency</h3>
-            <div class="num" id="contDisplay">—</div>
+            <h3>Per traveler</h3>
+            <div class="num" id="perPersonDisplay">—</div>
           </div>
           <div class="total-box">
             <h3>Total (all travelers)</h3>
             <div class="num" id="grandDisplay">—</div>
           </div>
         </div>
-        <div class="hr"></div>
-        <div class="totals">
-          <div class="total-box">
-            <h3>Per traveler</h3>
-            <div class="num" id="perPersonDisplay">—</div>
-          </div>
-          <div class="total-box">
-            <h3>Per night (group)</h3>
-            <div class="num" id="perNightDisplay">—</div>
-          </div>
-          <div class="total-box">
-            <h3>Per day (group)</h3>
-            <div class="num" id="perDayDisplay">—</div>
-          </div>
-          <div class="total-box">
-            <h3>One‑time vs Daily</h3>
-            <div class="num" id="splitDisplay">—</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="sticky-footer hide-print" aria-label="Footer actions">
-      <div class="wrap" style="padding-top:0">
-        <div class="row" style="gap:12px;align-items:center">
-          <div class="chip" title="Grand total">
-            <strong>Total</strong>
-            <span id="grandMini">—</span>
-          </div>
-          <div class="right notice">Tip: press <span class="kbd">Ctrl/Cmd + S</span> to save locally.</div>
-        </div>
       </div>
     </section>
 
   </div>
+
+  <button class="scroll-top" id="scrollTopBtn" title="Back to top" aria-label="Back to top">↑</button>
 
   <script>
   (function(){
@@ -293,20 +266,19 @@
 
     const els = {
       tripName: $('#tripName'), startDate: $('#startDate'), endDate: $('#endDate'), nightsLabel: $('#nightsLabel'),
-      groupSize: $('#groupSize'), currency: $('#currency'), taxPct: $('#taxPct'), contingencyPct: $('#contingencyPct'),
+      groupSize: $('#groupSize'), currency: $('#currency'), taxPct: $('#taxPct'),
       notes: $('#notes'), itemsBody: $('#itemsBody'), sumNights: $('#sumNights'), sumItems: $('#sumItems'),
-      subtotalDisplay: $('#subtotalDisplay'), taxDisplay: $('#taxDisplay'), contDisplay: $('#contDisplay'),
-      grandDisplay: $('#grandDisplay'), perPersonDisplay: $('#perPersonDisplay'), perNightDisplay: $('#perNightDisplay'),
-      perDayDisplay: $('#perDayDisplay'), splitDisplay: $('#splitDisplay'), grandMini: $('#grandMini'),
+      subtotalDisplay: $('#subtotalDisplay'), taxDisplay: $('#taxDisplay'),
+      grandDisplay: $('#grandDisplay'), perPersonDisplay: $('#perPersonDisplay'), grandTop: $('#grandTop'),
       addRowBtn: $('#addRowBtn'), addStarterBtn: $('#addStarterBtn'), resetBtn: $('#resetBtn'), saveBtn: $('#saveBtn'),
-      table: $('#itemsTable')
+      table: $('#itemsTable'), scrollTopBtn: $('#scrollTopBtn')
     };
 
-    const STORAGE_KEY = 'travelBudget_v3'; // bump version
+    const STORAGE_KEY = 'travelBudget_v7';
 
     let model = {
       meta: { name:'', start:'', end:'', notes:'' },
-      settings: { travelers:1, currency:'USD', taxPct:0, contingencyPct:0 },
+      settings: { travelers:1, currency:'USD', taxPct:0 },
       items: [] // { id, name, type:'one'|'day', perPerson:true|false, qty:1, unit:0, days:'' }
     };
 
@@ -341,18 +313,6 @@
       tr.querySelector('[data-act=dup]').addEventListener('click',()=> duplicateItem(it.id));
     }
 
-    function rowSubtotal(it, nights){
-      const qty = Math.max(num(it.qty,0), 0);
-      const unit = Math.max(num(it.unit,0), 0);
-      let base = qty * unit;
-      if(it.type === 'day'){
-        const days = it.days === '' ? nights : Math.max(num(it.days,0), 0);
-        base = base * (days || 0);
-      }
-      if(it.perPerson){ base = base * Math.max(num(model.settings.travelers,1), 1); }
-      return base;
-    }
-
     const headerLabels = ['Item','Type','Per person','Qty','Unit cost','Days','Subtotal','Actions'];
 
     function renderItems(){
@@ -364,14 +324,14 @@
           <td data-label="${headerLabels[0]}"><input data-f="name" type="text" placeholder="e.g., Flights, Hotel, Meals" value="${escapeHtml(it.name)}" /></td>
           <td data-label="${headerLabels[1]}">
             <select data-f="type">
-              <option value="one" ${it.type==='one'?'selected':''}>One‑time</option>
-              <option value="day" ${it.type==='day'?'selected':''}>Per‑day</option>
+              <option value="one" ${it.type==='one'?'selected':''}>One-time</option>
+              <option value="day" ${it.type==='day'?'selected':''}>Per-day</option>
             </select>
           </td>
           <td data-label="${headerLabels[2]}" style="text-align:left"><input data-f="per" type="checkbox" ${it.perPerson? 'checked':''} aria-label="Per person" /></td>
-          <td data-label="${headerLabels[3]}"><input data-f="qty" type="number" min="0" step="0.01" value="${num(it.qty,0)}" /></td>
-          <td data-label="${headerLabels[4]}"><input data-f="unit" type="number" min="0" step="0.01" value="${num(it.unit,0)}" /></td>
-          <td data-label="${headerLabels[5]}"><input data-f="days" type="number" min="0" step="1" placeholder="auto" value="${it.days}" /></td>
+          <td data-label="${headerLabels[3]}"><input data-f="qty" type="number" min="0" step="0.01" value="${safeNum(it.qty)}" /></td>
+          <td data-label="${headerLabels[4]}"><input data-f="unit" type="number" min="0" step="0.01" value="${safeNum(it.unit)}" /></td>
+          <td data-label="${headerLabels[5]}"><input data-f="days" type="number" min="0" step="1" placeholder="auto" value="${it.days==null?'':it.days}" /></td>
           <td data-label="${headerLabels[6]}"><output>${fmt(rowSubtotal(it, nights))}</output></td>
           <td data-label="${headerLabels[7]}" class="hide-print">
             <div class="cell-actions">
@@ -385,6 +345,20 @@
       calc(); scheduleResizePing();
     }
 
+    function safeNum(v){ const n = parseFloat(v); return Number.isFinite(n)? n : 0 }
+
+    function rowSubtotal(it, nights){
+      const qty = Math.max(num(it.qty,0), 0);
+      const unit = Math.max(num(it.unit,0), 0);
+      let base = qty * unit;
+      if(it.type === 'day'){
+        const days = (it.days === '' || it.days == null) ? nights : Math.max(num(it.days,0), 0);
+        base = base * (days || 0);
+      }
+      if(it.perPerson){ base = base * Math.max(num(model.settings.travelers,1), 1); }
+      return base;
+    }
+
     function calc(){
       model.meta.name = (els.tripName.value||'').trim();
       model.meta.start = els.startDate.value;
@@ -393,37 +367,25 @@
       model.settings.travelers = parseInt(els.groupSize.value||1,10);
       model.settings.currency = els.currency.value;
       model.settings.taxPct = num(els.taxPct.value,0);
-      model.settings.contingencyPct = num(els.contingencyPct.value,0);
 
       const nights = computeNights();
       if(els.nightsLabel) els.nightsLabel.textContent = nights;
       if(els.sumNights) els.sumNights.textContent = nights;
       if(els.sumItems) els.sumItems.textContent = model.items.length;
 
-      let subtotal = 0, oneTime=0, daily=0;
-      for(const it of model.items){
-        const st = rowSubtotal(it, nights);
-        subtotal += st;
-        if(it.type==='one') oneTime += st; else daily += st;
-      }
+      let subtotal = 0;
+      for(const it of model.items){ subtotal += rowSubtotal(it, nights); }
       const taxes = subtotal * (model.settings.taxPct/100);
-      const cont = (subtotal + taxes) * (model.settings.contingencyPct/100);
-      const grand = subtotal + taxes + cont;
+      const grand = subtotal + taxes;
 
       const travelers = Math.max(model.settings.travelers, 1);
-      const perPerson = travelers>0 ? (grand / travelers) : 0;
-      const perNight = nights>0 ? (grand / nights) : 0;
-      const perDay = perNight;
+      const perPerson = travelers > 0 ? (grand / travelers) : 0;
 
       els.subtotalDisplay.textContent = fmt(subtotal);
       els.taxDisplay.textContent = fmt(taxes);
-      els.contDisplay.textContent = fmt(cont);
       els.grandDisplay.textContent = fmt(grand);
       els.perPersonDisplay.textContent = fmt(perPerson);
-      els.perNightDisplay.textContent = nights>0 ? fmt(perNight) : '—';
-      els.perDayDisplay.textContent = nights>0 ? fmt(perDay) : '—';
-      els.splitDisplay.textContent = `${fmt(oneTime)} one‑time / ${fmt(daily)} daily`;
-      els.grandMini.textContent = fmt(grand);
+      if(els.grandTop) els.grandTop.textContent = fmt(grand);
 
       // Update row subtotals
       const rows = $$('#itemsBody tr');
@@ -448,10 +410,9 @@
       els.startDate.value = model.meta.start || '';
       els.endDate.value = model.meta.end || '';
       if(els.notes) els.notes.value = model.meta.notes || '';
-      els.groupSize.value = model.settings.travelers || 1;
-      els.currency.value = model.settings.currency || 'USD';
-      els.taxPct.value = model.settings.taxPct || 0;
-      els.contingencyPct.value = model.settings.contingencyPct || 0;
+      $('#groupSize').value = model.settings.travelers || 1;
+      $('#currency').value = model.settings.currency || 'USD';
+      $('#taxPct').value = model.settings.taxPct || 0;
       renderItems(); calc(); scheduleResizePing();
     }
 
@@ -469,7 +430,7 @@
 
     function resetAll(){
       if(!confirm('Clear all data?')) return;
-      model = { meta:{name:'',start:'',end:'',notes:''}, settings:{travelers:1,currency:'USD',taxPct:0,contingencyPct:0}, items:[] };
+      model = { meta:{name:'',start:'',end:'' ,notes:''}, settings:{travelers:1,currency:'USD',taxPct:0}, items:[] };
       applyModelToUI(); autosave(); scheduleResizePing();
     }
 
@@ -495,12 +456,22 @@
     const mo = new MutationObserver(scheduleResizePing);
     mo.observe(document.body, { childList:true, subtree:true, attributes:true, characterData:true });
 
-    window.addEventListener('load', scheduleResizePing);
+    // Scroll-to-top behavior
+    function updateScrollBtn(){
+      if(!els.scrollTopBtn) return;
+      els.scrollTopBtn.style.display = (window.scrollY > 200) ? 'block' : 'none';
+    }
+    window.addEventListener('scroll', ()=>{ updateScrollBtn(); scheduleResizePing(); });
+    if(els.scrollTopBtn){
+      els.scrollTopBtn.addEventListener('click', ()=>{ window.scrollTo({top:0, behavior:'smooth'}); });
+    }
+
+    window.addEventListener('load', ()=>{ updateScrollBtn(); scheduleResizePing(); });
     window.addEventListener('resize', scheduleResizePing);
 
     // Events
     ['input','change'].forEach(ev=>{
-      [els.tripName,els.startDate,els.endDate,els.groupSize,els.currency,els.taxPct,els.contingencyPct,els.notes].forEach(el=>{
+      [els.tripName,els.startDate,els.endDate,els.groupSize,els.currency,els.taxPct,els.notes].forEach(el=>{
         if(!el) return; el.addEventListener(ev, ()=>{ calc(); autosave(); scheduleResizePing(); });
       });
     });
@@ -509,14 +480,14 @@
     if(els.resetBtn) els.resetBtn.addEventListener('click', resetAll);
     if(els.saveBtn) els.saveBtn.addEventListener('click', ()=>{ autosave(); alert('Saved locally'); scheduleResizePing(); });
 
-    // INIT: start empty by default; only load saved data if present
+    // INIT: start empty unless saved data exists
     loadFromStorage();
     applyModelToUI();
 
     // Utils
     function escapeHtml(s){
       s = s==null ? '' : String(s);
-      return s.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#039;'}[m]); });
+      return s.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]); });
     }
   })();
   </script>
